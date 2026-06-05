@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kamila Musiorska — Architekt Wnętrz. Projekt kompleksowy. Przestrzeń tak osobista, jak opowieść, którą niesie.">
-  <title>Kamila Musiorska — Architekt Wnętrz</title>
+  <meta name="description" content="Kamila Musiorska - Architekt Wnetrz. Projekt kompleksowy. Przestrzen tak osobista, jak opowiesc, ktora niesie.">
+  <title>Kamila Musiorska - Architekt Wnetrz</title>
+  <meta property="og:title" content="Kamila Musiorska - Architekt Wnetrz">
+  <meta property="og:description" content="Projekt kompleksowy. Przestrzen tak osobista, jak opowiesc, ktora niesie.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/portret.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="images/portret.jpg">
+  <link rel="icon" type="image/jpeg" href="images/portret.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="images/portret.jpg">
+  <link rel="apple-touch-icon" href="images/portret.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,10 +36,8 @@
   </script>
 
   <style>
-    /* ─── RESET ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ─── TOKENS ─── */
     :root {
       --bg:    #1C1915;
       --bg-2:  #242018;
@@ -51,7 +59,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── GRAIN OVERLAY ─── */
     body::after {
       content: '';
       position: fixed;
@@ -77,7 +84,6 @@
       100% { transform: translate(0, 0); }
     }
 
-    /* ─── CUSTOM CURSOR ─── */
     #cursor {
       position: fixed;
       width: 7px; height: 7px;
@@ -98,7 +104,6 @@
       border: 1px solid rgba(196,163,106,0.6);
     }
 
-    /* ─── LOADER ─── */
     #loader {
       position: fixed;
       inset: 0;
@@ -132,7 +137,7 @@
       opacity: 0;
     }
 
-    /* ─── NAV ─── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -145,11 +150,18 @@
 
     .logo {
       display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.7rem;
       text-decoration: none;
       position: relative;
       z-index: 701;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
     }
 
     .logo-mk {
@@ -170,7 +182,7 @@
       text-transform: uppercase;
     }
 
-    /* ─── HAMBURGER ─── */
+    /* HAMBURGER */
     .nav-burger {
       background: none;
       border: none;
@@ -198,18 +210,11 @@
 
     .nav-burger:hover span { background: var(--gold); }
 
-    .nav-burger.is-open span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-    .nav-burger.is-open span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    .nav-burger.is-open span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
+    .nav-burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    /* ─── NAV OVERLAY ─── */
+    /* NAV OVERLAY */
     .nav-overlay {
       position: fixed;
       inset: 0;
@@ -284,7 +289,7 @@
       opacity: 0;
     }
 
-    /* ─── HERO ─── */
+    /* HERO */
     #hero {
       position: relative;
       height: 100vh;
@@ -327,10 +332,7 @@
       left: clamp(1.5rem, 5vw, 3.5rem);
     }
 
-    .hero-label {
-      overflow: hidden;
-      margin-bottom: 1.1rem;
-    }
+    .hero-label { overflow: hidden; margin-bottom: 1.1rem; }
 
     .hero-label-inner {
       display: block;
@@ -345,20 +347,14 @@
     .hero-h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+      font-size: clamp(2.9rem, 8.6vw, 7.6rem);
       line-height: 1.0;
       letter-spacing: -0.025em;
       color: var(--text);
     }
 
-    .hero-line-wrap {
-      overflow: hidden;
-      display: block;
-    }
-
-    .hero-line {
-      display: block;
-    }
+    .hero-line-wrap { overflow: hidden; display: block; }
+    .hero-line { display: block; }
 
     .scroll-hint {
       position: absolute;
@@ -392,7 +388,7 @@
       55%       { opacity: 1;    transform: scaleY(1); }
     }
 
-    /* ─── MANIFEST ─── */
+    /* MANIFEST */
     #manifest {
       background: var(--bg);
       padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
@@ -403,57 +399,19 @@
 
     .manifest-inner { max-width: 860px; }
 
-    .section-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .section-eyebrow::before {
-      content: attr(data-num);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.0rem;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-    }
-
-    .section-eyebrow .eyebrow-slash {
-      color: var(--muted);
-      font-weight: 300;
-      letter-spacing: 0.1em;
-    }
-
     blockquote.manifest-quote {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.1rem, 5.8vw, 4.8rem);
+      font-size: clamp(1.95rem, 5.1vw, 4.25rem);
       line-height: 1.08;
       color: var(--text);
       margin-bottom: 4.5rem;
     }
 
-    .q-line-wrap {
-      overflow: hidden;
-      display: block;
-    }
+    .q-line-wrap { overflow: hidden; display: block; }
+    .q-line { display: block; }
 
-    .q-line {
-      display: block;
-    }
-
-    .pillars {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-    }
+    .pillars { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
 
     .pillar {
       font-family: 'DM Sans', sans-serif;
@@ -471,14 +429,10 @@
       line-height: 1;
     }
 
-    /* ─── GALLERY ─── */
+    /* GALLERY */
     #galeria {
       background: var(--bg);
       padding: 0 clamp(1.5rem, 5vw, 3.5rem) clamp(6rem, 14vh, 10rem);
-    }
-
-    .gallery-head {
-      padding: clamp(1rem, 3vh, 2rem) 0 clamp(3rem, 7vh, 5rem);
     }
 
     .g-full { width: 100%; margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem); }
@@ -495,24 +449,6 @@
     .g-two .img-wrap:first-child { height: clamp(38vh, 55vh, 68vh); }
     .g-two .img-wrap:last-child  { height: clamp(28vh, 42vh, 52vh); margin-top: 6vh; }
 
-    .g-asym {
-      display: grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap: clamp(0.8rem, 1.5vw, 1.2rem);
-      margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
-      align-items: end;
-    }
-
-    .g-asym .img-wrap:first-child { height: clamp(42vh, 58vh, 72vh); }
-    .g-asym .img-wrap:last-child  { height: clamp(30vh, 44vh, 56vh); }
-
-    .g-offset {
-      width: 62%;
-      margin-left: auto;
-    }
-
-    .g-offset .img-wrap { height: clamp(42vh, 56vh, 68vh); }
-
     .img-wrap {
       position: relative;
       overflow: hidden;
@@ -528,33 +464,6 @@
     }
 
     .img-wrap:hover img { transform: scale(1.04); }
-
-    .img-caption {
-      position: absolute;
-      bottom: 1.1rem;
-      left: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      pointer-events: none;
-    }
-
-    .img-caption-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .img-caption-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.48rem;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      color: rgba(235,229,217,0.65);
-      text-transform: uppercase;
-    }
 
     .img-fallback {
       width: 100%; height: 100%;
@@ -576,11 +485,7 @@
       opacity: 0.075;
     }
 
-    .img-fallback-border {
-      position: absolute;
-      inset: 1.2rem;
-      border: 1px solid var(--line);
-    }
+    .img-fallback-border { position: absolute; inset: 1.2rem; border: 1px solid var(--line); }
 
     .img-fallback-text {
       font-family: 'DM Sans', sans-serif;
@@ -595,7 +500,7 @@
       opacity: 0.7;
     }
 
-    /* ─── EDITORIAL ─── */
+    /* EDITORIAL */
     #editorial {
       position: relative;
       min-height: 100vh;
@@ -629,24 +534,14 @@
       flex-direction: column;
       justify-content: center;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
-      max-width: min(65%, 860px);
+      max-width: min(58%, 760px);
       min-height: 100vh;
-    }
-
-    .editorial-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
     }
 
     .ed-q1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.35rem, 6.6vw, 5.8rem);
       line-height: 1.04;
       color: var(--text);
       margin-bottom: 0.2em;
@@ -655,31 +550,22 @@
     .ed-q2 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.35rem, 6.6vw, 5.8rem);
       line-height: 1.04;
       color: var(--gold);
     }
 
-    .ed-word {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
-    }
+    .ed-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .ed-word-inner { display: inline-block; }
 
-    .ed-word-inner {
-      display: inline-block;
-    }
-
-    /* ─── USŁUGI ─── */
+    /* USLUGI */
     #uslugi {
       background: var(--bg-2);
       padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
       border-top: 1px solid var(--line);
     }
 
-    .uslugi-header {
-      margin-bottom: clamp(3.5rem, 9vh, 6rem);
-    }
+    .uslugi-header { margin-bottom: clamp(3.5rem, 9vh, 6rem); }
 
     .uslugi-title {
       font-family: 'Cormorant Garamond', serif;
@@ -760,7 +646,7 @@
       background: rgba(28,25,21,0.5);
     }
 
-    /* ─── CONTACT / FOOTER ─── */
+    /* KONTAKT */
     #kontakt {
       background: var(--bg);
       padding: clamp(8rem, 20vh, 16rem) clamp(1.5rem, 5vw, 3.5rem) clamp(4rem, 8vh, 6rem);
@@ -776,7 +662,7 @@
     .contact-mk {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(4.5rem, 12vw, 8rem);
+      font-size: clamp(4rem, 10.5vw, 7rem);
       line-height: 1;
       letter-spacing: -0.02em;
       color: var(--text);
@@ -785,7 +671,7 @@
 
     .contact-brand {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       font-weight: 400;
       letter-spacing: 0.5em;
       color: var(--muted);
@@ -796,14 +682,14 @@
     .contact-name {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+      font-size: clamp(1.55rem, 4vw, 2.45rem);
       color: var(--text);
       margin-bottom: 0.6rem;
     }
 
     .contact-role {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.3em;
       color: var(--muted);
       text-transform: uppercase;
@@ -842,7 +728,7 @@
 
     .contact-link {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.22em;
       color: var(--muted);
       text-transform: uppercase;
@@ -852,16 +738,12 @@
 
     .contact-link:hover { color: var(--text); }
 
-    .contact-link.is-token {
-      color: var(--gold);
-      cursor: default;
-    }
-
+    .contact-link.is-token { color: var(--gold); cursor: default; }
     .contact-link.is-token:hover { color: var(--gold); }
 
     .contact-phone-blocked {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.22em;
       color: var(--muted);
       text-transform: uppercase;
@@ -876,68 +758,49 @@
       padding-top: 1.5rem;
       border-top: 1px solid var(--line);
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.52rem;
+      font-size: 0.48rem;
       letter-spacing: 0.22em;
       color: var(--muted);
       text-transform: uppercase;
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .g-two, .g-asym {
+      .g-two {
         grid-template-columns: 1fr;
       }
 
       .g-two .img-wrap:first-child,
-      .g-two .img-wrap:last-child,
-      .g-asym .img-wrap:first-child,
-      .g-asym .img-wrap:last-child {
-        height: clamp(42vh, 58vw, 60vh);
+      .g-two .img-wrap:last-child {
+        height: clamp(32vh, 58vw, 52vh);
         margin-top: 0;
       }
 
-      .g-offset { width: 100%; }
+      .g-full .img-wrap {
+        height: clamp(34vh, 62vw, 54vh);
+      }
 
       .editorial-content {
         max-width: 100%;
-        padding: clamp(6rem, 14vw, 8rem) clamp(1.5rem, 5vw, 2rem);
+        padding: clamp(5.5rem, 16vw, 7rem) 1rem clamp(5rem, 14vw, 6rem);
       }
 
-      .editorial-overlay {
-        background: rgba(12,11,10,0.82);
-      }
+      .editorial-overlay { background: rgba(12,11,10,0.82); }
 
-      .uslugi-grid {
-        grid-template-columns: 1fr;
-      }
+      .ed-q1, .ed-q2 { font-size: clamp(2rem, 11vw, 3.2rem); }
 
-      .uslugi-card {
-        min-height: 220px;
-      }
+      .uslugi-grid { grid-template-columns: 1fr; }
+      .uslugi-card { min-height: 220px; }
     }
 
-    /* ─── REDUCED MOTION ─── */
     @media (prefers-reduced-motion: reduce) {
       body::after { animation: none; }
       .scroll-hint-line { animation: none; opacity: 0.4; }
-
       #loader { display: none !important; }
-
       .img-wrap { clip-path: none !important; }
-
-      .hero-label-inner,
-      .hero-line,
-      .q-line,
-      .pillar,
-      .pillar-sep,
-      .section-eyebrow,
-      .gallery-head,
-      .ed-word-inner,
-      .editorial-eyebrow,
-      .contact-center > *,
-      .uslugi-header,
-      .uslugi-card { opacity: 1 !important; transform: none !important; }
-
+      .hero-label-inner, .hero-line, .q-line, .pillar, .pillar-sep,
+      .ed-word-inner, .contact-center > *, .uslugi-header, .uslugi-card
+        { opacity: 1 !important; transform: none !important; }
       .nav-overlay { transition: none; }
       .nav-burger span { transition: none; }
       .nav-menu-link { opacity: 1 !important; transform: none !important; }
@@ -947,10 +810,8 @@
 </head>
 <body>
 
-  <!-- CURSOR -->
   <div id="cursor" aria-hidden="true"></div>
 
-  <!-- LOADER -->
   <div id="loader" aria-hidden="true">
     <div class="loader-mk" id="ldrMK">MK</div>
     <div class="loader-sub" id="ldrSub">Musiorska Architekt</div>
@@ -959,8 +820,11 @@
   <!-- NAV -->
   <nav aria-label="Nawigacja główna">
     <a href="#" class="logo" aria-label="Kamila Musiorska — strona główna">
-      <span class="logo-mk">MK</span>
-      <span class="logo-sub">Musiorska Architekt</span>
+      <img src="images/portret.jpg" alt="" aria-hidden="true" style="width:3rem;height:3rem;border-radius:50%;object-fit:cover;border:1px solid rgba(235,229,217,0.14);flex:0 0 auto;">
+      <span class="logo-text">
+        <span class="logo-mk">MK</span>
+        <span class="logo-sub">Musiorska Architekt</span>
+      </span>
     </a>
     <button class="nav-burger" id="navBurger" aria-label="Otwórz menu" aria-expanded="false">
       <span></span>
@@ -982,18 +846,17 @@
     <p class="nav-overlay-footer" aria-hidden="true">© 2025 Kamila Musiorska</p>
   </div>
 
-  <!-- ═══════════════ HERO ═══════════════ -->
+  <!-- HERO -->
   <section id="hero" aria-label="Strona tytułowa">
     <img
       class="hero-bg"
       id="heroBg"
-      src="images/hero.jpg"
+      src="images/ImageDownloader_www.instagram.com_689052558_18586067389054010_1068557961351040873_n.jpg"
       alt="Wnętrze zaprojektowane przez Kamilę Musiorską"
       onerror="this.style.display='none'; document.getElementById('heroBgFallback').style.display='block';"
     >
     <div class="hero-bg-fallback" id="heroBgFallback" aria-hidden="true"></div>
     <div class="hero-gradient" aria-hidden="true"></div>
-
     <div class="hero-content">
       <div class="hero-label" aria-hidden="true">
         <span class="hero-label-inner">Architekt&nbsp;Wnętrz&nbsp;&nbsp;·&nbsp;&nbsp;Projekt&nbsp;Kompleksowy</span>
@@ -1003,14 +866,13 @@
         <span class="hero-line-wrap"><span class="hero-line">Musiorska</span></span>
       </h1>
     </div>
-
     <div class="scroll-hint" aria-hidden="true">
       <span class="scroll-hint-text">Przewiń</span>
       <div class="scroll-hint-line"></div>
     </div>
   </section>
 
-  <!-- ═══════════════ MANIFEST ═══════════════ -->
+  <!-- MANIFEST -->
   <section id="manifest" aria-label="Manifest">
     <div class="manifest-inner">
       <blockquote class="manifest-quote">
@@ -1028,55 +890,31 @@
     </div>
   </section>
 
-  <!-- ═══════════════ GALERIA ═══════════════ -->
+  <!-- GALERIA -->
   <section id="galeria" aria-label="Galeria realizacji">
-
-    <!-- 01 full width -->
     <div class="g-full">
       <div class="img-wrap" data-reveal>
-        <img src="images/01.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/01.jpg'), this)">
+        <img src="images/ImageDownloader_www.instagram.com_701157047_18588021211054010_1980807239765107053_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('01'), this)">
       </div>
     </div>
-
-    <!-- 02 + 03 two column -->
     <div class="g-two">
       <div class="img-wrap" data-reveal>
-        <img src="images/02.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/02.jpg'), this)">
+        <img src="images/ImageDownloader_www.instagram.com_710651169_18592300978054010_578262123835546646_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('02'), this)">
       </div>
       <div class="img-wrap" data-reveal>
-        <img src="images/03.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/03.jpg'), this)">
-      </div>
-    </div>
-
-    <!-- 04 + 05 asymmetric -->
-    <div class="g-asym">
-      <div class="img-wrap" data-reveal>
-        <img src="images/04.jpg" alt="Realizacja czwarta — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/04.jpg'), this)">
-      </div>
-      <div class="img-wrap" data-reveal>
-        <img src="images/05.jpg" alt="Realizacja piąta — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/05.jpg'), this)">
-      </div>
-    </div>
-
-    <!-- 06 offset right -->
-    <div class="g-offset">
-      <div class="img-wrap" data-reveal>
-        <img src="images/06.jpg" alt="Realizacja szósta — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/06.jpg'), this)">
+        <img src="images/ImageDownloader_www.instagram.com_703752261_18588026446054010_2466794512283422903_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('03'), this)">
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ EDITORIAL ═══════════════ -->
+  <!-- EDITORIAL -->
   <section id="editorial" aria-label="Cytat przewodni">
     <img
       class="editorial-bg"
-      src="images/editorial.jpg"
+      src="images/ImageDownloader_www.instagram.com_671831078_18582086686054010_1888012415151305134_n.jpg"
       alt="Wnętrze — praca Kamili Musiorskiej"
       loading="lazy"
       onerror="this.style.display='none'; document.querySelector('.editorial-overlay').style.background='var(--bg-2)'"
@@ -1097,50 +935,40 @@
     </div>
   </section>
 
-  <!-- ═══════════════ USŁUGI ═══════════════ -->
+  <!-- USLUGI -->
   <section id="uslugi" aria-label="Usługi">
     <div class="uslugi-header">
       <h2 class="uslugi-title">Usługi</h2>
     </div>
     <div class="uslugi-grid">
-
       <div class="uslugi-card">
         <div class="uslugi-card-content" aria-hidden="true">
           <h3 class="uslugi-card-name">Nazwa usługi</h3>
           <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
           <span class="uslugi-card-price">Cena</span>
         </div>
-        <div class="uslugi-lock-badge" aria-hidden="true">
-          <span class="uslugi-lock-badge-inner">Wkrótce</span>
-        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
       </div>
-
       <div class="uslugi-card">
         <div class="uslugi-card-content" aria-hidden="true">
           <h3 class="uslugi-card-name">Nazwa usługi</h3>
           <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
           <span class="uslugi-card-price">Cena</span>
         </div>
-        <div class="uslugi-lock-badge" aria-hidden="true">
-          <span class="uslugi-lock-badge-inner">Wkrótce</span>
-        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
       </div>
-
       <div class="uslugi-card">
         <div class="uslugi-card-content" aria-hidden="true">
           <h3 class="uslugi-card-name">Nazwa usługi</h3>
           <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
           <span class="uslugi-card-price">Cena</span>
         </div>
-        <div class="uslugi-lock-badge" aria-hidden="true">
-          <span class="uslugi-lock-badge-inner">Wkrótce</span>
-        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════ KONTAKT / STOPKA ═══════════════ -->
+  <!-- KONTAKT -->
   <footer id="kontakt" aria-label="Kontakt">
     <div class="contact-center" id="contactCenter">
       <div class="contact-mk" aria-hidden="true">MK</div>
@@ -1149,38 +977,23 @@
       <p class="contact-role">Architekt wnętrz · Projekt kompleksowy</p>
       <div class="contact-divider" aria-hidden="true"></div>
       <nav class="contact-links" aria-label="Dane kontaktowe">
-
         <div class="contact-item">
           <span class="contact-item-label">Instagram</span>
-          <a
-            href="https://instagram.com/kamila.musiorska"
-            class="contact-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram: @kamila.musiorska"
-          >@kamila.musiorska</a>
+          <a href="https://www.instagram.com/kamila.musiorska/" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram: @kamila.musiorska">@kamila.musiorska</a>
         </div>
-
         <div class="contact-item">
           <span class="contact-item-label">E-mail</span>
-          <a
-            href="mailto:{{EMAIL}}"
-            class="contact-link is-token"
-            aria-label="Adres e-mail — do uzupełnienia"
-          >{{EMAIL}}</a>
+          <a href="mailto:{{EMAIL}}" class="contact-link is-token" aria-label="Adres e-mail — do uzupełnienia">{{EMAIL}}</a>
         </div>
-
         <div class="contact-item">
           <span class="contact-item-label">Telefon</span>
           <span class="contact-phone-blocked" aria-label="Numer telefonu — wkrótce dostępny">+48 &bull;&bull;&bull; &bull;&bull;&bull; &bull;&bull;&bull;</span>
         </div>
-
       </nav>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
   </footer>
 
-  <!-- ═══════════════ SCRIPTS ═══════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1190,10 +1003,8 @@
     'use strict';
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ── LENIS ── */
     var lenis;
     if (!reducedMotion) {
       lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
@@ -1202,31 +1013,25 @@
       gsap.ticker.lagSmoothing(0);
     }
 
-    /* ── CURSOR ── */
     var cursor = document.getElementById('cursor');
     var isTouch = window.matchMedia('(hover: none)').matches;
 
     if (!isTouch && !reducedMotion) {
       cursor.style.display = 'block';
       var cx = 0, cy = 0, tx = 0, ty = 0;
-
       document.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
-
       gsap.ticker.add(function () {
         cx += (tx - cx) * 0.14;
         cy += (ty - cy) * 0.14;
         gsap.set(cursor, { x: cx, y: cy });
       });
-
       document.querySelectorAll('a, .img-wrap, .nav-burger').forEach(function (el) {
         el.addEventListener('mouseenter', function () { cursor.classList.add('expanded'); });
         el.addEventListener('mouseleave', function () { cursor.classList.remove('expanded'); });
       });
     }
 
-    /* ─────────────────────────────────────────────
-       HAMBURGER MENU
-    ───────────────────────────────────────────── */
+    /* HAMBURGER */
     var navBurger  = document.getElementById('navBurger');
     var navOverlay = document.getElementById('navOverlay');
     var menuLinks  = document.querySelectorAll('[data-menu-link]');
@@ -1241,16 +1046,9 @@
       navOverlay.classList.add('is-open');
       navOverlay.removeAttribute('aria-hidden');
       document.body.style.overflow = 'hidden';
-
       if (!reducedMotion) {
-        gsap.fromTo(menuLinkEls,
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.08, delay: 0.12 }
-        );
-        gsap.fromTo('.nav-overlay-label, .nav-overlay-footer',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.08 }
-        );
+        gsap.fromTo(menuLinkEls, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.08, delay: 0.12 });
+        gsap.fromTo('.nav-overlay-label, .nav-overlay-footer', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.08 });
       } else {
         gsap.set(menuLinkEls, { opacity: 1, y: 0 });
         gsap.set('.nav-overlay-label, .nav-overlay-footer', { opacity: 1 });
@@ -1264,17 +1062,10 @@
       navBurger.setAttribute('aria-label', 'Otwórz menu');
       navOverlay.classList.remove('is-open');
       navOverlay.setAttribute('aria-hidden', 'true');
-
       if (!reducedMotion) {
-        gsap.to('.nav-overlay-label, .nav-overlay-footer', {
-          opacity: 0, duration: 0.25, ease: 'power2.in'
-        });
-        gsap.to(menuLinkEls, {
-          opacity: 0, y: 14, duration: 0.3, ease: 'power2.in', stagger: 0.03,
-          onComplete: function () {
-            document.body.style.overflow = '';
-            if (callback) callback();
-          }
+        gsap.to('.nav-overlay-label, .nav-overlay-footer', { opacity: 0, duration: 0.25, ease: 'power2.in' });
+        gsap.to(menuLinkEls, { opacity: 0, y: 14, duration: 0.3, ease: 'power2.in', stagger: 0.03,
+          onComplete: function () { document.body.style.overflow = ''; if (callback) callback(); }
         });
       } else {
         gsap.set(menuLinkEls, { opacity: 0, y: 22 });
@@ -1295,11 +1086,8 @@
         closeMenu(function () {
           var target = document.querySelector(targetId);
           if (!target) return;
-          if (lenis) {
-            lenis.scrollTo(target, { offset: -80, duration: 1.2 });
-          } else {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
+          if (lenis) { lenis.scrollTo(target, { offset: -80, duration: 1.2 }); }
+          else { target.scrollIntoView({ behavior: 'smooth' }); }
         });
       });
     });
@@ -1308,104 +1096,63 @@
       if (e.key === 'Escape' && menuIsOpen) { closeMenu(); }
     });
 
-    /* ─────────────────────────────────────────────
-       LOADER → HERO
-    ───────────────────────────────────────────── */
+    /* LOADER */
     function startSite() {
       if (reducedMotion) {
         document.getElementById('loader').style.display = 'none';
-        document.querySelectorAll('.img-wrap').forEach(function (el) {
-          el.style.clipPath = 'none';
-        });
+        document.querySelectorAll('.img-wrap').forEach(function (el) { el.style.clipPath = 'none'; });
         bindScrollAnimations();
         return;
       }
-
-      var tl = gsap.timeline({
-        onComplete: function () {
-          document.getElementById('loader').style.display = 'none';
-          bindScrollAnimations();
-        }
-      });
-
-      tl.to('#ldrMK', {
-        opacity: 1, filter: 'blur(0px)', duration: 0.65, ease: 'power2.out'
-      })
-      .to('#ldrSub', {
-        opacity: 1, duration: 0.4, ease: 'power2.out'
-      }, '-=0.15')
-      .to('#loader', {
-        yPercent: -100, duration: 0.88, ease: 'power3.inOut', delay: 0.28
-      })
-      .from('#heroBg', {
-        scale: 1.07, duration: 1.3, ease: 'power3.out'
-      }, '-=0.5')
-      .from('.hero-label-inner', {
-        yPercent: 115, duration: 0.95, ease: 'power3.out'
-      }, '-=0.9')
-      .from('.hero-line', {
-        yPercent: 108, duration: 1.0, ease: 'expo.out', stagger: 0.09
-      }, '-=0.65')
-      .from('.scroll-hint', {
-        opacity: 0, y: 14, duration: 0.7, ease: 'power2.out'
-      }, '-=0.3');
+      var tl = gsap.timeline({ onComplete: function () {
+        document.getElementById('loader').style.display = 'none';
+        bindScrollAnimations();
+      }});
+      tl.to('#ldrMK', { opacity: 1, filter: 'blur(0px)', duration: 0.65, ease: 'power2.out' })
+        .to('#ldrSub', { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.15')
+        .to('#loader', { yPercent: -100, duration: 0.88, ease: 'power3.inOut', delay: 0.28 })
+        .from('#heroBg', { scale: 1.07, duration: 1.3, ease: 'power3.out' }, '-=0.5')
+        .from('.hero-label-inner', { yPercent: 115, duration: 0.95, ease: 'power3.out' }, '-=0.9')
+        .from('.hero-line', { yPercent: 108, duration: 1.0, ease: 'expo.out', stagger: 0.09 }, '-=0.65')
+        .from('.scroll-hint', { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, '-=0.3');
     }
 
-    /* ─────────────────────────────────────────────
-       SCROLL ANIMATIONS
-    ───────────────────────────────────────────── */
+    /* SCROLL ANIMATIONS */
     function bindScrollAnimations() {
-
       gsap.from('.q-line', {
         scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
         yPercent: 105, duration: 1.05, ease: 'power3.out', stagger: 0.1
       });
-
       gsap.from('.pillar, .pillar-sep', {
         scrollTrigger: { trigger: '.pillars', start: 'top 88%' },
         opacity: 0, y: 10, duration: 0.65, ease: 'power3.out', stagger: 0.07
       });
-
       document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
         var img = wrap.querySelector('img');
-
-        gsap.to(wrap, {
-          clipPath: 'inset(0% 0 0 0)',
-          duration: 1.15,
-          ease: 'power3.out',
+        gsap.to(wrap, { clipPath: 'inset(0% 0 0 0)', duration: 1.15, ease: 'power3.out',
           scrollTrigger: { trigger: wrap, start: 'top 90%' }
         });
-
         if (img) {
-          gsap.fromTo(img,
-            { scale: 1.14 },
-            { scale: 1, duration: 1.35, ease: 'power3.out',
-              scrollTrigger: { trigger: wrap, start: 'top 90%' } }
-          );
-          gsap.to(img, {
-            yPercent: -9, ease: 'none',
-            scrollTrigger: {
-              trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8
-            }
+          gsap.fromTo(img, { scale: 1.14 }, { scale: 1, duration: 1.35, ease: 'power3.out',
+            scrollTrigger: { trigger: wrap, start: 'top 90%' }
+          });
+          gsap.to(img, { yPercent: -9, ease: 'none',
+            scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8 }
           });
         }
       });
-
       gsap.from('.ed-word-inner', {
         scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
         yPercent: 102, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.065
       });
-
       gsap.from('.uslugi-header', {
         scrollTrigger: { trigger: '#uslugi', start: 'top 82%' },
         opacity: 0, y: 20, duration: 0.8, ease: 'power3.out'
       });
-
       gsap.from('.uslugi-card', {
         scrollTrigger: { trigger: '#uslugi', start: 'top 78%' },
         opacity: 0, y: 28, duration: 0.85, ease: 'power3.out', stagger: 0.1
       });
-
       gsap.from('#contactCenter > *', {
         scrollTrigger: { trigger: '#kontakt', start: 'top 82%' },
         opacity: 0, y: 22, duration: 0.9, ease: 'power3.out', stagger: 0.09
@@ -1417,7 +1164,6 @@
     } else {
       startSite();
     }
-
   }());
   </script>
 
