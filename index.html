@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <script>
-    /* createFallback must be global before any img onerror fires */
     function createFallback(src) {
       var div = document.createElement('div');
       div.className = 'img-fallback';
@@ -137,7 +136,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 500;
+      z-index: 600;
       padding: clamp(1.4rem, 3vh, 2rem) clamp(1.5rem, 5vw, 3.5rem);
       display: flex;
       align-items: center;
@@ -149,6 +148,8 @@
       flex-direction: column;
       gap: 0.25rem;
       text-decoration: none;
+      position: relative;
+      z-index: 701;
     }
 
     .logo-mk {
@@ -169,29 +170,119 @@
       text-transform: uppercase;
     }
 
-    .nav-cta {
+    /* ─── HAMBURGER ─── */
+    .nav-burger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.55rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 701;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-burger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--text);
+      transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 0.3s ease,
+                  background 0.35s;
+    }
+
+    .nav-burger:hover span { background: var(--gold); }
+
+    .nav-burger.is-open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .nav-burger.is-open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav-burger.is-open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    /* ─── NAV OVERLAY ─── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(5rem, 12vh, 9rem) clamp(1.5rem, 5vw, 3.5rem) clamp(3rem, 8vh, 6rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .nav-overlay.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-overlay-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.5rem;
       font-weight: 400;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.48em;
+      color: var(--muted);
       text-transform: uppercase;
+      margin-bottom: clamp(2.5rem, 6vh, 4rem);
+      opacity: 0;
+    }
+
+    .nav-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-menu-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
       color: var(--text);
       text-decoration: none;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      display: inline-block;
       position: relative;
-      transition: color 0.35s;
+      transition: color 0.3s;
+      opacity: 0;
+      transform: translateY(22px);
+      padding-bottom: 0.05em;
     }
 
-    .nav-cta::after {
+    .nav-menu-link::after {
       content: '';
       position: absolute;
-      bottom: -2px; left: 0; right: 100%;
-      height: 1px;
+      bottom: 6px; left: 0;
+      width: 0; height: 1px;
       background: var(--gold);
-      transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .nav-cta:hover { color: var(--gold); }
-    .nav-cta:hover::after { right: 0; }
+    .nav-menu-link:hover { color: var(--gold); }
+    .nav-menu-link:hover::after { width: 100%; }
+
+    .nav-overlay-footer {
+      margin-top: clamp(2.5rem, 7vh, 5rem);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.38em;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0;
+    }
 
     /* ─── HERO ─── */
     #hero {
@@ -209,7 +300,6 @@
       object-position: center 30%;
     }
 
-    /* placeholder shown when hero.jpg is missing */
     .hero-bg-fallback {
       position: absolute;
       inset: 0;
@@ -391,7 +481,6 @@
       padding: clamp(1rem, 3vh, 2rem) 0 clamp(3rem, 7vh, 5rem);
     }
 
-    /* ── layouts ── */
     .g-full { width: 100%; margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem); }
     .g-full .img-wrap { height: clamp(52vh, 68vh, 82vh); }
 
@@ -424,7 +513,6 @@
 
     .g-offset .img-wrap { height: clamp(42vh, 56vh, 68vh); }
 
-    /* ── img-wrap ── */
     .img-wrap {
       position: relative;
       overflow: hidden;
@@ -441,7 +529,6 @@
 
     .img-wrap:hover img { transform: scale(1.04); }
 
-    /* caption sits over image */
     .img-caption {
       position: absolute;
       bottom: 1.1rem;
@@ -469,7 +556,6 @@
       text-transform: uppercase;
     }
 
-    /* ── fallback ── */
     .img-fallback {
       width: 100%; height: 100%;
       background: var(--bg-2);
@@ -584,6 +670,96 @@
       display: inline-block;
     }
 
+    /* ─── USŁUGI ─── */
+    #uslugi {
+      background: var(--bg-2);
+      padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .uslugi-header {
+      margin-bottom: clamp(3.5rem, 9vh, 6rem);
+    }
+
+    .uslugi-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .uslugi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.8rem);
+    }
+
+    .uslugi-card {
+      position: relative;
+      border: 1px solid var(--line);
+      padding: clamp(2rem, 3.5vw, 2.8rem);
+      background: var(--bg);
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .uslugi-card-content {
+      filter: blur(7px);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    .uslugi-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+
+    .uslugi-card-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .uslugi-card-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .uslugi-lock-badge {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .uslugi-lock-badge-inner {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.46rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: 0.65rem 1.5rem;
+      background: rgba(28,25,21,0.5);
+    }
+
     /* ─── CONTACT / FOOTER ─── */
     #kontakt {
       background: var(--bg);
@@ -644,8 +820,24 @@
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.6rem;
       align-items: center;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .contact-item-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.42rem;
+      font-weight: 400;
+      letter-spacing: 0.45em;
+      color: rgba(154,145,130,0.5);
+      text-transform: uppercase;
     }
 
     .contact-link {
@@ -666,6 +858,18 @@
     }
 
     .contact-link.is-token:hover { color: var(--gold); }
+
+    .contact-phone-blocked {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0.3;
+      cursor: default;
+      text-decoration: line-through;
+      text-decoration-color: rgba(154,145,130,0.4);
+    }
 
     .footer-copy {
       margin-top: clamp(5rem, 12vh, 9rem);
@@ -702,6 +906,14 @@
       .editorial-overlay {
         background: rgba(12,11,10,0.82);
       }
+
+      .uslugi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .uslugi-card {
+        min-height: 220px;
+      }
     }
 
     /* ─── REDUCED MOTION ─── */
@@ -722,7 +934,14 @@
       .gallery-head,
       .ed-word-inner,
       .editorial-eyebrow,
-      .contact-center > * { opacity: 1 !important; transform: none !important; }
+      .contact-center > *,
+      .uslugi-header,
+      .uslugi-card { opacity: 1 !important; transform: none !important; }
+
+      .nav-overlay { transition: none; }
+      .nav-burger span { transition: none; }
+      .nav-menu-link { opacity: 1 !important; transform: none !important; }
+      .nav-overlay-label, .nav-overlay-footer { opacity: 1 !important; }
     }
   </style>
 </head>
@@ -743,8 +962,25 @@
       <span class="logo-mk">MK</span>
       <span class="logo-sub">Musiorska Architekt</span>
     </a>
-    <a href="#kontakt" class="nav-cta">Kontakt</a>
+    <button class="nav-burger" id="navBurger" aria-label="Otwórz menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+
+  <!-- NAV OVERLAY -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <p class="nav-overlay-label" aria-hidden="true">Nawigacja</p>
+    <nav class="nav-menu-links" aria-label="Sekcje strony">
+      <a href="#hero"     class="nav-menu-link" data-menu-link>Strona&nbsp;główna</a>
+      <a href="#manifest" class="nav-menu-link" data-menu-link>Manifest</a>
+      <a href="#galeria"  class="nav-menu-link" data-menu-link>Galeria</a>
+      <a href="#uslugi"   class="nav-menu-link" data-menu-link>Usługi</a>
+      <a href="#kontakt"  class="nav-menu-link" data-menu-link>Kontakt</a>
+    </nav>
+    <p class="nav-overlay-footer" aria-hidden="true">© 2025 Kamila Musiorska</p>
+  </div>
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <section id="hero" aria-label="Strona tytułowa">
@@ -777,11 +1013,6 @@
   <!-- ═══════════════ MANIFEST ═══════════════ -->
   <section id="manifest" aria-label="Manifest">
     <div class="manifest-inner">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="section-eyebrow" data-num="01" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Insight
-      </p>
-      -->
       <blockquote class="manifest-quote">
         <span class="q-line-wrap"><span class="q-line">Przestrzeń tak osobista,</span></span>
         <span class="q-line-wrap"><span class="q-line">jak opowieść,</span></span>
@@ -799,25 +1030,12 @@
 
   <!-- ═══════════════ GALERIA ═══════════════ -->
   <section id="galeria" aria-label="Galeria realizacji">
-    <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-    <div class="gallery-head">
-      <p class="section-eyebrow" data-num="02" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Realizacje
-      </p>
-    </div>
-    -->
 
     <!-- 01 full width -->
     <div class="g-full">
       <div class="img-wrap" data-reveal>
         <img src="images/01.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/01.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">01</span>
-          <span class="img-caption-label">{{PODPIS_01}}</span>
-        </div>
-        -->
       </div>
     </div>
 
@@ -826,22 +1044,10 @@
       <div class="img-wrap" data-reveal>
         <img src="images/02.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/02.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">02</span>
-          <span class="img-caption-label">{{PODPIS_02}}</span>
-        </div>
-        -->
       </div>
       <div class="img-wrap" data-reveal>
         <img src="images/03.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/03.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">03</span>
-          <span class="img-caption-label">{{PODPIS_03}}</span>
-        </div>
-        -->
       </div>
     </div>
 
@@ -850,22 +1056,10 @@
       <div class="img-wrap" data-reveal>
         <img src="images/04.jpg" alt="Realizacja czwarta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/04.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">04</span>
-          <span class="img-caption-label">{{PODPIS_04}}</span>
-        </div>
-        -->
       </div>
       <div class="img-wrap" data-reveal>
         <img src="images/05.jpg" alt="Realizacja piąta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/05.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">05</span>
-          <span class="img-caption-label">{{PODPIS_05}}</span>
-        </div>
-        -->
       </div>
     </div>
 
@@ -874,12 +1068,6 @@
       <div class="img-wrap" data-reveal>
         <img src="images/06.jpg" alt="Realizacja szósta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/06.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">06</span>
-          <span class="img-caption-label">{{PODPIS_06}}</span>
-        </div>
-        -->
       </div>
     </div>
   </section>
@@ -895,9 +1083,6 @@
     >
     <div class="editorial-overlay" aria-hidden="true"></div>
     <div class="editorial-content">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="editorial-eyebrow" aria-hidden="true">03 / Editorial</p>
-      -->
       <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
         <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
         <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
@@ -912,6 +1097,49 @@
     </div>
   </section>
 
+  <!-- ═══════════════ USŁUGI ═══════════════ -->
+  <section id="uslugi" aria-label="Usługi">
+    <div class="uslugi-header">
+      <h2 class="uslugi-title">Usługi</h2>
+    </div>
+    <div class="uslugi-grid">
+
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true">
+          <span class="uslugi-lock-badge-inner">Wkrótce</span>
+        </div>
+      </div>
+
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true">
+          <span class="uslugi-lock-badge-inner">Wkrótce</span>
+        </div>
+      </div>
+
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true">
+          <span class="uslugi-lock-badge-inner">Wkrótce</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══════════════ KONTAKT / STOPKA ═══════════════ -->
   <footer id="kontakt" aria-label="Kontakt">
     <div class="contact-center" id="contactCenter">
@@ -921,19 +1149,32 @@
       <p class="contact-role">Architekt wnętrz · Projekt kompleksowy</p>
       <div class="contact-divider" aria-hidden="true"></div>
       <nav class="contact-links" aria-label="Dane kontaktowe">
-        <a
-          href="https://instagram.com/kamila.musiorska"
-          class="contact-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram: @kamila.musiorska"
-        >@kamila.musiorska</a>
-        <a
-          href="mailto:{{EMAIL}}"
-          class="contact-link is-token"
-          aria-label="Adres e-mail — do uzupełnienia"
-        >{{EMAIL}}</a>
-        <span class="contact-link is-token" aria-label="Numer telefonu — do uzupełnienia">{{TELEFON}}</span>
+
+        <div class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <a
+            href="https://instagram.com/kamila.musiorska"
+            class="contact-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram: @kamila.musiorska"
+          >@kamila.musiorska</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-item-label">E-mail</span>
+          <a
+            href="mailto:{{EMAIL}}"
+            class="contact-link is-token"
+            aria-label="Adres e-mail — do uzupełnienia"
+          >{{EMAIL}}</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-item-label">Telefon</span>
+          <span class="contact-phone-blocked" aria-label="Numer telefonu — wkrótce dostępny">+48 &bull;&bull;&bull; &bull;&bull;&bull; &bull;&bull;&bull;</span>
+        </div>
+
       </nav>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
@@ -950,7 +1191,6 @@
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ── REGISTER ── */
     gsap.registerPlugin(ScrollTrigger);
 
     /* ── LENIS ── */
@@ -978,11 +1218,95 @@
         gsap.set(cursor, { x: cx, y: cy });
       });
 
-      document.querySelectorAll('a, .img-wrap, .nav-cta').forEach(function (el) {
+      document.querySelectorAll('a, .img-wrap, .nav-burger').forEach(function (el) {
         el.addEventListener('mouseenter', function () { cursor.classList.add('expanded'); });
         el.addEventListener('mouseleave', function () { cursor.classList.remove('expanded'); });
       });
     }
+
+    /* ─────────────────────────────────────────────
+       HAMBURGER MENU
+    ───────────────────────────────────────────── */
+    var navBurger  = document.getElementById('navBurger');
+    var navOverlay = document.getElementById('navOverlay');
+    var menuLinks  = document.querySelectorAll('[data-menu-link]');
+    var menuLinkEls = document.querySelectorAll('.nav-menu-link');
+    var menuIsOpen = false;
+
+    function openMenu() {
+      menuIsOpen = true;
+      navBurger.classList.add('is-open');
+      navBurger.setAttribute('aria-expanded', 'true');
+      navBurger.setAttribute('aria-label', 'Zamknij menu');
+      navOverlay.classList.add('is-open');
+      navOverlay.removeAttribute('aria-hidden');
+      document.body.style.overflow = 'hidden';
+
+      if (!reducedMotion) {
+        gsap.fromTo(menuLinkEls,
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.08, delay: 0.12 }
+        );
+        gsap.fromTo('.nav-overlay-label, .nav-overlay-footer',
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.08 }
+        );
+      } else {
+        gsap.set(menuLinkEls, { opacity: 1, y: 0 });
+        gsap.set('.nav-overlay-label, .nav-overlay-footer', { opacity: 1 });
+      }
+    }
+
+    function closeMenu(callback) {
+      menuIsOpen = false;
+      navBurger.classList.remove('is-open');
+      navBurger.setAttribute('aria-expanded', 'false');
+      navBurger.setAttribute('aria-label', 'Otwórz menu');
+      navOverlay.classList.remove('is-open');
+      navOverlay.setAttribute('aria-hidden', 'true');
+
+      if (!reducedMotion) {
+        gsap.to('.nav-overlay-label, .nav-overlay-footer', {
+          opacity: 0, duration: 0.25, ease: 'power2.in'
+        });
+        gsap.to(menuLinkEls, {
+          opacity: 0, y: 14, duration: 0.3, ease: 'power2.in', stagger: 0.03,
+          onComplete: function () {
+            document.body.style.overflow = '';
+            if (callback) callback();
+          }
+        });
+      } else {
+        gsap.set(menuLinkEls, { opacity: 0, y: 22 });
+        gsap.set('.nav-overlay-label, .nav-overlay-footer', { opacity: 0 });
+        document.body.style.overflow = '';
+        if (callback) callback();
+      }
+    }
+
+    navBurger.addEventListener('click', function () {
+      if (menuIsOpen) { closeMenu(); } else { openMenu(); }
+    });
+
+    menuLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href');
+        closeMenu(function () {
+          var target = document.querySelector(targetId);
+          if (!target) return;
+          if (lenis) {
+            lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuIsOpen) { closeMenu(); }
+    });
 
     /* ─────────────────────────────────────────────
        LOADER → HERO
@@ -1004,49 +1328,26 @@
         }
       });
 
-      /* 1 · monogram fades in */
       tl.to('#ldrMK', {
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 0.65,
-        ease: 'power2.out'
+        opacity: 1, filter: 'blur(0px)', duration: 0.65, ease: 'power2.out'
       })
-      /* 2 · sub-label */
       .to('#ldrSub', {
-        opacity: 1,
-        duration: 0.4,
-        ease: 'power2.out'
+        opacity: 1, duration: 0.4, ease: 'power2.out'
       }, '-=0.15')
-      /* 3 · loader slides up */
       .to('#loader', {
-        yPercent: -100,
-        duration: 0.88,
-        ease: 'power3.inOut',
-        delay: 0.28
+        yPercent: -100, duration: 0.88, ease: 'power3.inOut', delay: 0.28
       })
-      /* 4 · hero bg zooms from slightly enlarged */
       .from('#heroBg', {
-        scale: 1.07,
-        duration: 1.3,
-        ease: 'power3.out'
+        scale: 1.07, duration: 1.3, ease: 'power3.out'
       }, '-=0.5')
-      /* 5 · hero text reveals */
       .from('.hero-label-inner', {
-        yPercent: 115,
-        duration: 0.95,
-        ease: 'power3.out'
+        yPercent: 115, duration: 0.95, ease: 'power3.out'
       }, '-=0.9')
       .from('.hero-line', {
-        yPercent: 108,
-        duration: 1.0,
-        ease: 'expo.out',
-        stagger: 0.09
+        yPercent: 108, duration: 1.0, ease: 'expo.out', stagger: 0.09
       }, '-=0.65')
       .from('.scroll-hint', {
-        opacity: 0,
-        y: 14,
-        duration: 0.7,
-        ease: 'power2.out'
+        opacity: 0, y: 14, duration: 0.7, ease: 'power2.out'
       }, '-=0.3');
     }
 
@@ -1055,103 +1356,62 @@
     ───────────────────────────────────────────── */
     function bindScrollAnimations() {
 
-      /* ── MANIFEST eyebrow ── */
-      gsap.from('#manifest .section-eyebrow', {
-        scrollTrigger: { trigger: '#manifest', start: 'top 82%' },
-        opacity: 0, y: 18, duration: 0.8, ease: 'power3.out'
-      });
-
-      /* ── MANIFEST quote lines ── */
       gsap.from('.q-line', {
         scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
-        yPercent: 105,
-        duration: 1.05,
-        ease: 'power3.out',
-        stagger: 0.1
+        yPercent: 105, duration: 1.05, ease: 'power3.out', stagger: 0.1
       });
 
-      /* ── MANIFEST pillars ── */
       gsap.from('.pillar, .pillar-sep', {
         scrollTrigger: { trigger: '.pillars', start: 'top 88%' },
-        opacity: 0, y: 10,
-        duration: 0.65,
-        ease: 'power3.out',
-        stagger: 0.07
+        opacity: 0, y: 10, duration: 0.65, ease: 'power3.out', stagger: 0.07
       });
 
-      /* ── GALLERY eyebrow ── */
-      gsap.from('.gallery-head', {
-        scrollTrigger: { trigger: '#galeria', start: 'top 82%' },
-        opacity: 0, y: 16, duration: 0.8, ease: 'power3.out'
-      });
-
-      /* ── GALLERY image reveals ── */
       document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
         var img = wrap.querySelector('img');
 
-        /* clip reveal */
         gsap.to(wrap, {
           clipPath: 'inset(0% 0 0 0)',
           duration: 1.15,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: wrap,
-            start: 'top 90%'
-          }
+          scrollTrigger: { trigger: wrap, start: 'top 90%' }
         });
 
-        /* scale from within */
         if (img) {
           gsap.fromTo(img,
             { scale: 1.14 },
-            {
-              scale: 1,
-              duration: 1.35,
-              ease: 'power3.out',
-              scrollTrigger: { trigger: wrap, start: 'top 90%' }
-            }
+            { scale: 1, duration: 1.35, ease: 'power3.out',
+              scrollTrigger: { trigger: wrap, start: 'top 90%' } }
           );
-
-          /* parallax scrub */
           gsap.to(img, {
-            yPercent: -9,
-            ease: 'none',
+            yPercent: -9, ease: 'none',
             scrollTrigger: {
-              trigger: wrap,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.8
+              trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8
             }
           });
         }
       });
 
-      /* ── EDITORIAL ── */
-      gsap.from('.editorial-eyebrow', {
-        scrollTrigger: { trigger: '#editorial', start: 'top 80%' },
-        opacity: 0, y: 14, duration: 0.7, ease: 'power3.out'
-      });
-
       gsap.from('.ed-word-inner', {
         scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
-        yPercent: 102,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        stagger: 0.065
+        yPercent: 102, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.065
       });
 
-      /* ── CONTACT ── */
+      gsap.from('.uslugi-header', {
+        scrollTrigger: { trigger: '#uslugi', start: 'top 82%' },
+        opacity: 0, y: 20, duration: 0.8, ease: 'power3.out'
+      });
+
+      gsap.from('.uslugi-card', {
+        scrollTrigger: { trigger: '#uslugi', start: 'top 78%' },
+        opacity: 0, y: 28, duration: 0.85, ease: 'power3.out', stagger: 0.1
+      });
+
       gsap.from('#contactCenter > *', {
         scrollTrigger: { trigger: '#kontakt', start: 'top 82%' },
-        opacity: 0, y: 22,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.09
+        opacity: 0, y: 22, duration: 0.9, ease: 'power3.out', stagger: 0.09
       });
     }
 
-    /* ── KICK OFF ── */
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', startSite);
     } else {
