@@ -203,6 +203,10 @@
     .nav-cta:hover { color: var(--gold); }
     .nav-cta:hover::after { right: 0; }
 
+    .mobile-quick-nav {
+      display: none;
+    }
+
     /* ─── HERO ─── */
     #hero {
       position: relative;
@@ -265,7 +269,7 @@
     .hero-h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+      font-size: clamp(2.9rem, 8.6vw, 7.6rem);
       line-height: 1.0;
       letter-spacing: -0.025em;
       color: var(--text);
@@ -353,7 +357,7 @@
     blockquote.manifest-quote {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.1rem, 5.8vw, 4.8rem);
+      font-size: clamp(1.95rem, 5.1vw, 4.25rem);
       line-height: 1.08;
       color: var(--text);
       margin-bottom: 4.5rem;
@@ -553,7 +557,7 @@
       flex-direction: column;
       justify-content: center;
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
-      max-width: min(65%, 860px);
+      max-width: min(58%, 760px);
       min-height: 100vh;
     }
 
@@ -570,7 +574,7 @@
     .ed-q1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.35rem, 6.6vw, 5.8rem);
       line-height: 1.04;
       color: var(--text);
       margin-bottom: 0.2em;
@@ -579,9 +583,15 @@
     .ed-q2 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.35rem, 6.6vw, 5.8rem);
       line-height: 1.04;
       color: var(--gold);
+    }
+
+    .blur-placeholder {
+      filter: blur(6px);
+      opacity: 0.72;
+      user-select: none;
     }
 
     .ed-word {
@@ -610,7 +620,7 @@
     .contact-mk {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(4.5rem, 12vw, 8rem);
+      font-size: clamp(4rem, 10.5vw, 7rem);
       line-height: 1;
       letter-spacing: -0.02em;
       color: var(--text);
@@ -619,7 +629,7 @@
 
     .contact-brand {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       font-weight: 400;
       letter-spacing: 0.5em;
       color: var(--muted);
@@ -630,14 +640,14 @@
     .contact-name {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+      font-size: clamp(1.55rem, 4vw, 2.45rem);
       color: var(--text);
       margin-bottom: 0.6rem;
     }
 
     .contact-role {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.3em;
       color: var(--muted);
       text-transform: uppercase;
@@ -660,7 +670,7 @@
 
     .contact-link {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.22em;
       color: var(--muted);
       text-transform: uppercase;
@@ -677,12 +687,73 @@
 
     .contact-link.is-token:hover { color: var(--gold); }
 
+    .contact-form {
+      width: min(100%, 560px);
+      margin: clamp(2.5rem, 6vh, 4rem) auto 0;
+      display: grid;
+      gap: 0.9rem;
+      text-align: left;
+    }
+
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .contact-field,
+    .contact-textarea {
+      width: 100%;
+      border: 1px solid rgba(235,229,217,0.14);
+      background: rgba(235,229,217,0.04);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.95rem 1rem;
+      outline: none;
+      border-radius: 0;
+    }
+
+    .contact-field::placeholder,
+    .contact-textarea::placeholder {
+      color: rgba(235,229,217,0.42);
+    }
+
+    .contact-field:focus,
+    .contact-textarea:focus {
+      border-color: rgba(196,163,106,0.45);
+      background: rgba(235,229,217,0.06);
+    }
+
+    .contact-textarea {
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.5;
+      text-transform: none;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-submit {
+      justify-self: start;
+      border: 1px solid rgba(196,163,106,0.4);
+      background: transparent;
+      color: var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.1rem;
+      cursor: default;
+    }
+
     .footer-copy {
       margin-top: clamp(5rem, 12vh, 9rem);
       padding-top: 1.5rem;
       border-top: 1px solid var(--line);
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.52rem;
+      font-size: 0.48rem;
       letter-spacing: 0.22em;
       color: var(--muted);
       text-transform: uppercase;
@@ -690,6 +761,118 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1rem;
+        align-items: flex-start;
+      }
+
+      .logo {
+        gap: 0.55rem;
+      }
+
+      .logo-mk {
+        font-size: 1.3rem;
+      }
+
+      .logo-sub {
+        font-size: 0.38rem;
+        letter-spacing: 0.3em;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .mobile-quick-nav {
+        display: flex;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 700;
+        gap: 0.45rem;
+        padding: 0.45rem 0.55rem;
+        border: 1px solid rgba(235,229,217,0.12);
+        border-radius: 999px;
+        background: rgba(28,25,21,0.74);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .mobile-quick-nav a {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.46rem;
+        font-weight: 400;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--text);
+        text-decoration: none;
+        padding: 0.32rem 0.42rem;
+        border-radius: 999px;
+      }
+
+      #hero {
+        min-height: 100svh;
+      }
+
+      .hero-content {
+        left: 1rem;
+        right: 1rem;
+        bottom: clamp(5rem, 18vh, 7rem);
+        max-width: 92vw;
+      }
+
+      .hero-label {
+        margin-bottom: 0.85rem;
+      }
+
+      .hero-label-inner {
+        font-size: 0.44rem;
+        letter-spacing: 0.28em;
+      }
+
+      .hero-h1 {
+        font-size: clamp(2.55rem, 16vw, 4.5rem);
+        line-height: 0.95;
+      }
+
+      .scroll-hint {
+        bottom: 1rem;
+      }
+
+      .scroll-hint-text {
+        font-size: 0.42rem;
+        letter-spacing: 0.28em;
+      }
+
+      #manifest {
+        padding: clamp(5rem, 13vh, 8rem) 1rem clamp(5rem, 12vh, 8rem);
+      }
+
+      blockquote.manifest-quote {
+        font-size: clamp(1.7rem, 8.5vw, 2.7rem);
+        margin-bottom: 3rem;
+      }
+
+      .pillars {
+        gap: 0.5rem;
+      }
+
+      .pillar,
+      .section-eyebrow,
+      .contact-link,
+      .contact-role,
+      .contact-brand {
+        letter-spacing: 0.22em;
+      }
+
+      #galeria {
+        padding: 0 1rem clamp(4.5rem, 12vh, 7rem);
+      }
+
+      .gallery-head {
+        padding: 0.5rem 0 2rem;
+      }
+
       .g-two, .g-asym {
         grid-template-columns: 1fr;
       }
@@ -698,19 +881,57 @@
       .g-two .img-wrap:last-child,
       .g-asym .img-wrap:first-child,
       .g-asym .img-wrap:last-child {
-        height: clamp(42vh, 58vw, 60vh);
+        height: clamp(32vh, 58vw, 52vh);
         margin-top: 0;
       }
 
-      .g-offset { width: 100%; }
+      .g-full .img-wrap,
+      .g-offset,
+      .g-offset .img-wrap {
+        width: 100%;
+        height: clamp(34vh, 62vw, 54vh);
+      }
 
       .editorial-content {
         max-width: 100%;
-        padding: clamp(6rem, 14vw, 8rem) clamp(1.5rem, 5vw, 2rem);
+        padding: clamp(5.5rem, 16vw, 7rem) 1rem clamp(5rem, 14vw, 6rem);
       }
 
       .editorial-overlay {
         background: rgba(12,11,10,0.82);
+      }
+
+      .ed-q1,
+      .ed-q2 {
+        font-size: clamp(2rem, 11vw, 3.2rem);
+      }
+
+      #kontakt {
+        padding: clamp(5.5rem, 14vh, 8rem) 1rem clamp(3rem, 8vh, 5rem);
+      }
+
+      .contact-center {
+        max-width: 100%;
+      }
+
+      .contact-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        margin-top: 2rem;
+      }
+
+      .contact-mk {
+        font-size: clamp(3.1rem, 18vw, 5rem);
+      }
+
+      .contact-name {
+        font-size: clamp(1.35rem, 7vw, 2rem);
+      }
+
+      .footer-copy {
+        margin-top: 3.5rem;
       }
     }
 
@@ -754,8 +975,12 @@
       <span class="logo-mk">MK</span>
       <span class="logo-sub">Musiorska Architekt</span>
     </a>
-    <a href="#kontakt" class="nav-cta">Kontakt</a>
   </nav>
+
+  <div class="mobile-quick-nav" aria-label="Szybka nawigacja">
+    <a href="#hero">Start</a>
+    <a href="#galeria">Galeria</a>
+  </div>
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <section id="hero" aria-label="Strona tytułowa">
@@ -889,25 +1114,27 @@
   <footer id="kontakt" aria-label="Kontakt">
     <div class="contact-center" id="contactCenter">
       <div class="contact-mk" aria-hidden="true">MK</div>
-      <p class="contact-brand">Musiorska Architekt</p>
+      <p class="contact-brand">Kontakt</p>
       <h2 class="contact-name">Kamila Musiorska</h2>
       <p class="contact-role">Architekt wnętrz · Projekt kompleksowy</p>
       <div class="contact-divider" aria-hidden="true"></div>
       <nav class="contact-links" aria-label="Dane kontaktowe">
         <a
-          href="https://instagram.com/kamila.musiorska"
+          href="https://www.instagram.com/kamila.musiorska/"
           class="contact-link"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram: @kamila.musiorska"
         >@kamila.musiorska</a>
-        <a
-          href="mailto:{{EMAIL}}"
-          class="contact-link is-token"
-          aria-label="Adres e-mail — do uzupełnienia"
-        >{{EMAIL}}</a>
-        <span class="contact-link is-token" aria-label="Numer telefonu — do uzupełnienia">{{TELEFON}}</span>
       </nav>
+      <form class="contact-form" aria-label="Pokazowy formularz kontaktowy" onsubmit="return false;">
+        <div class="contact-form-grid">
+          <input class="contact-field" type="text" name="name" placeholder="Imię" aria-label="Imię">
+          <input class="contact-field" type="text" name="surname" placeholder="Nazwisko" aria-label="Nazwisko">
+        </div>
+        <textarea class="contact-textarea" name="message" placeholder="Wiadomość" aria-label="Wiadomość"></textarea>
+        <button class="contact-submit" type="button" aria-label="Formularz pokazowy">Wyślij</button>
+      </form>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
   </footer>
