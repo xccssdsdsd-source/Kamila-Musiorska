@@ -328,7 +328,8 @@
     #hero {
       position: relative;
       height: 100vh;
-      min-height: 600px;
+      height: 100svh;
+      min-height: 540px;
       overflow: hidden;
     }
 
@@ -539,6 +540,7 @@
     #editorial {
       position: relative;
       min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: stretch;
       overflow: hidden;
@@ -571,6 +573,7 @@
       padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
       max-width: min(58%, 760px);
       min-height: 100vh;
+      min-height: 100svh;
     }
 
     .ed-q1 {
@@ -912,6 +915,17 @@
       .uslugi-card { min-height: 220px; }
 
       .contact-body { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-h1 { font-size: clamp(2.6rem, 13vw, 3.4rem); }
+      .hero-content { bottom: clamp(4.5rem, 14vh, 7rem); }
+    }
+
+    @media (max-height: 560px) and (orientation: landscape) {
+      #hero { min-height: 420px; }
+      .scroll-hint { display: none; }
+      .hero-content { bottom: clamp(1.5rem, 6vh, 3rem); }
     }
 
     @media (prefers-reduced-motion: reduce) {
