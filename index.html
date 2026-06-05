@@ -21,7 +21,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <script>
-    /* createFallback must be global before any img onerror fires */
     function createFallback(src) {
       var div = document.createElement('div');
       div.className = 'img-fallback';
@@ -37,10 +36,8 @@
   </script>
 
   <style>
-    /* ─── RESET ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ─── TOKENS ─── */
     :root {
       --bg:    #1C1915;
       --bg-2:  #242018;
@@ -62,7 +59,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── GRAIN OVERLAY ─── */
     body::after {
       content: '';
       position: fixed;
@@ -88,7 +84,6 @@
       100% { transform: translate(0, 0); }
     }
 
-    /* ─── CUSTOM CURSOR ─── */
     #cursor {
       position: fixed;
       width: 7px; height: 7px;
@@ -109,7 +104,6 @@
       border: 1px solid rgba(196,163,106,0.6);
     }
 
-    /* ─── LOADER ─── */
     #loader {
       position: fixed;
       inset: 0;
@@ -143,11 +137,11 @@
       opacity: 0;
     }
 
-    /* ─── NAV ─── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 500;
+      z-index: 600;
       padding: clamp(1.4rem, 3vh, 2rem) clamp(1.5rem, 5vw, 3.5rem);
       display: flex;
       align-items: center;
@@ -156,9 +150,18 @@
 
     .logo {
       display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      position: relative;
+      z-index: 701;
+    }
+
+    .logo-text {
+      display: flex;
       flex-direction: column;
       gap: 0.25rem;
-      text-decoration: none;
     }
 
     .logo-mk {
@@ -179,35 +182,114 @@
       text-transform: uppercase;
     }
 
-    .nav-cta {
+    /* HAMBURGER */
+    .nav-burger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.55rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 701;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-burger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--text);
+      transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 0.3s ease,
+                  background 0.35s;
+    }
+
+    .nav-burger:hover span { background: var(--gold); }
+
+    .nav-burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* NAV OVERLAY */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(5rem, 12vh, 9rem) clamp(1.5rem, 5vw, 3.5rem) clamp(3rem, 8vh, 6rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .nav-overlay.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-overlay-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.5rem;
       font-weight: 400;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.48em;
+      color: var(--muted);
       text-transform: uppercase;
+      margin-bottom: clamp(2.5rem, 6vh, 4rem);
+      opacity: 0;
+    }
+
+    .nav-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-menu-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
       color: var(--text);
       text-decoration: none;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      display: inline-block;
       position: relative;
-      transition: color 0.35s;
+      transition: color 0.3s;
+      opacity: 0;
+      transform: translateY(22px);
+      padding-bottom: 0.05em;
     }
 
-    .nav-cta::after {
+    .nav-menu-link::after {
       content: '';
       position: absolute;
-      bottom: -2px; left: 0; right: 100%;
-      height: 1px;
+      bottom: 6px; left: 0;
+      width: 0; height: 1px;
       background: var(--gold);
-      transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .nav-cta:hover { color: var(--gold); }
-    .nav-cta:hover::after { right: 0; }
+    .nav-menu-link:hover { color: var(--gold); }
+    .nav-menu-link:hover::after { width: 100%; }
 
-    .mobile-quick-nav {
-      display: none;
+    .nav-overlay-footer {
+      margin-top: clamp(2.5rem, 7vh, 5rem);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.38em;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0;
     }
 
-    /* ─── HERO ─── */
+    /* HERO */
     #hero {
       position: relative;
       height: 100vh;
@@ -223,7 +305,6 @@
       object-position: center 30%;
     }
 
-    /* placeholder shown when hero.jpg is missing */
     .hero-bg-fallback {
       position: absolute;
       inset: 0;
@@ -251,10 +332,7 @@
       left: clamp(1.5rem, 5vw, 3.5rem);
     }
 
-    .hero-label {
-      overflow: hidden;
-      margin-bottom: 1.1rem;
-    }
+    .hero-label { overflow: hidden; margin-bottom: 1.1rem; }
 
     .hero-label-inner {
       display: block;
@@ -275,14 +353,8 @@
       color: var(--text);
     }
 
-    .hero-line-wrap {
-      overflow: hidden;
-      display: block;
-    }
-
-    .hero-line {
-      display: block;
-    }
+    .hero-line-wrap { overflow: hidden; display: block; }
+    .hero-line { display: block; }
 
     .scroll-hint {
       position: absolute;
@@ -316,7 +388,7 @@
       55%       { opacity: 1;    transform: scaleY(1); }
     }
 
-    /* ─── MANIFEST ─── */
+    /* MANIFEST */
     #manifest {
       background: var(--bg);
       padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
@@ -327,33 +399,6 @@
 
     .manifest-inner { max-width: 860px; }
 
-    .section-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .section-eyebrow::before {
-      content: attr(data-num);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.0rem;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-    }
-
-    .section-eyebrow .eyebrow-slash {
-      color: var(--muted);
-      font-weight: 300;
-      letter-spacing: 0.1em;
-    }
-
     blockquote.manifest-quote {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -363,21 +408,10 @@
       margin-bottom: 4.5rem;
     }
 
-    .q-line-wrap {
-      overflow: hidden;
-      display: block;
-    }
+    .q-line-wrap { overflow: hidden; display: block; }
+    .q-line { display: block; }
 
-    .q-line {
-      display: block;
-    }
-
-    .pillars {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-    }
+    .pillars { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
 
     .pillar {
       font-family: 'DM Sans', sans-serif;
@@ -395,17 +429,12 @@
       line-height: 1;
     }
 
-    /* ─── GALLERY ─── */
+    /* GALLERY */
     #galeria {
       background: var(--bg);
       padding: 0 clamp(1.5rem, 5vw, 3.5rem) clamp(6rem, 14vh, 10rem);
     }
 
-    .gallery-head {
-      padding: clamp(1rem, 3vh, 2rem) 0 clamp(3rem, 7vh, 5rem);
-    }
-
-    /* ── layouts ── */
     .g-full { width: 100%; margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem); }
     .g-full .img-wrap { height: clamp(52vh, 68vh, 82vh); }
 
@@ -420,25 +449,6 @@
     .g-two .img-wrap:first-child { height: clamp(38vh, 55vh, 68vh); }
     .g-two .img-wrap:last-child  { height: clamp(28vh, 42vh, 52vh); margin-top: 6vh; }
 
-    .g-asym {
-      display: grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap: clamp(0.8rem, 1.5vw, 1.2rem);
-      margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
-      align-items: end;
-    }
-
-    .g-asym .img-wrap:first-child { height: clamp(42vh, 58vh, 72vh); }
-    .g-asym .img-wrap:last-child  { height: clamp(30vh, 44vh, 56vh); }
-
-    .g-offset {
-      width: 62%;
-      margin-left: auto;
-    }
-
-    .g-offset .img-wrap { height: clamp(42vh, 56vh, 68vh); }
-
-    /* ── img-wrap ── */
     .img-wrap {
       position: relative;
       overflow: hidden;
@@ -455,35 +465,6 @@
 
     .img-wrap:hover img { transform: scale(1.04); }
 
-    /* caption sits over image */
-    .img-caption {
-      position: absolute;
-      bottom: 1.1rem;
-      left: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      pointer-events: none;
-    }
-
-    .img-caption-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .img-caption-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.48rem;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      color: rgba(235,229,217,0.65);
-      text-transform: uppercase;
-    }
-
-    /* ── fallback ── */
     .img-fallback {
       width: 100%; height: 100%;
       background: var(--bg-2);
@@ -504,11 +485,7 @@
       opacity: 0.075;
     }
 
-    .img-fallback-border {
-      position: absolute;
-      inset: 1.2rem;
-      border: 1px solid var(--line);
-    }
+    .img-fallback-border { position: absolute; inset: 1.2rem; border: 1px solid var(--line); }
 
     .img-fallback-text {
       font-family: 'DM Sans', sans-serif;
@@ -523,7 +500,7 @@
       opacity: 0.7;
     }
 
-    /* ─── EDITORIAL ─── */
+    /* EDITORIAL */
     #editorial {
       position: relative;
       min-height: 100vh;
@@ -561,16 +538,6 @@
       min-height: 100vh;
     }
 
-    .editorial-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.58rem;
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
-    }
-
     .ed-q1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -588,23 +555,98 @@
       color: var(--gold);
     }
 
-    .blur-placeholder {
-      filter: blur(6px);
-      opacity: 0.72;
-      user-select: none;
+    .ed-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .ed-word-inner { display: inline-block; }
+
+    /* USLUGI */
+    #uslugi {
+      background: var(--bg-2);
+      padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
+      border-top: 1px solid var(--line);
     }
 
-    .ed-word {
-      display: inline-block;
+    .uslugi-header { margin-bottom: clamp(3.5rem, 9vh, 6rem); }
+
+    .uslugi-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .uslugi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.8rem);
+    }
+
+    .uslugi-card {
+      position: relative;
+      border: 1px solid var(--line);
+      padding: clamp(2rem, 3.5vw, 2.8rem);
+      background: var(--bg);
       overflow: hidden;
-      vertical-align: bottom;
+      min-height: 280px;
     }
 
-    .ed-word-inner {
-      display: inline-block;
+    .uslugi-card-content {
+      filter: blur(7px);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.55;
     }
 
-    /* ─── CONTACT / FOOTER ─── */
+    .uslugi-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+
+    .uslugi-card-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .uslugi-card-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .uslugi-lock-badge {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .uslugi-lock-badge-inner {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.46rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: 0.65rem 1.5rem;
+      background: rgba(28,25,21,0.5);
+    }
+
+    /* KONTAKT */
     #kontakt {
       background: var(--bg);
       padding: clamp(8rem, 20vh, 16rem) clamp(1.5rem, 5vw, 3.5rem) clamp(4rem, 8vh, 6rem);
@@ -664,8 +706,24 @@
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.6rem;
       align-items: center;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .contact-item-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.42rem;
+      font-weight: 400;
+      letter-spacing: 0.45em;
+      color: rgba(154,145,130,0.5);
+      text-transform: uppercase;
     }
 
     .contact-link {
@@ -680,72 +738,19 @@
 
     .contact-link:hover { color: var(--text); }
 
-    .contact-link.is-token {
-      color: var(--gold);
-      cursor: default;
-    }
-
+    .contact-link.is-token { color: var(--gold); cursor: default; }
     .contact-link.is-token:hover { color: var(--gold); }
 
-    .contact-form {
-      width: min(100%, 560px);
-      margin: clamp(2.5rem, 6vh, 4rem) auto 0;
-      display: grid;
-      gap: 0.9rem;
-      text-align: left;
-    }
-
-    .contact-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.9rem;
-    }
-
-    .contact-field,
-    .contact-textarea {
-      width: 100%;
-      border: 1px solid rgba(235,229,217,0.14);
-      background: rgba(235,229,217,0.04);
-      color: var(--text);
+    .contact-phone-blocked {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
       text-transform: uppercase;
-      padding: 0.95rem 1rem;
-      outline: none;
-      border-radius: 0;
-    }
-
-    .contact-field::placeholder,
-    .contact-textarea::placeholder {
-      color: rgba(235,229,217,0.42);
-    }
-
-    .contact-field:focus,
-    .contact-textarea:focus {
-      border-color: rgba(196,163,106,0.45);
-      background: rgba(235,229,217,0.06);
-    }
-
-    .contact-textarea {
-      min-height: 160px;
-      resize: vertical;
-      line-height: 1.5;
-      text-transform: none;
-      letter-spacing: 0.08em;
-    }
-
-    .contact-submit {
-      justify-self: start;
-      border: 1px solid rgba(196,163,106,0.4);
-      background: transparent;
-      color: var(--gold);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      padding: 0.95rem 1.1rem;
+      opacity: 0.3;
       cursor: default;
+      text-decoration: line-through;
+      text-decoration-color: rgba(154,145,130,0.4);
     }
 
     .footer-copy {
@@ -759,136 +764,19 @@
       text-transform: uppercase;
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav {
-        padding: 1rem 1rem;
-        align-items: flex-start;
-      }
-
-      .logo {
-        gap: 0.55rem;
-      }
-
-      .logo-mk {
-        font-size: 1.3rem;
-      }
-
-      .logo-sub {
-        font-size: 0.38rem;
-        letter-spacing: 0.3em;
-      }
-
-      .nav-cta {
-        display: none;
-      }
-
-      .mobile-quick-nav {
-        display: flex;
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 700;
-        gap: 0.45rem;
-        padding: 0.45rem 0.55rem;
-        border: 1px solid rgba(235,229,217,0.12);
-        border-radius: 999px;
-        background: rgba(28,25,21,0.74);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-      }
-
-      .mobile-quick-nav a {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.46rem;
-        font-weight: 400;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        color: var(--text);
-        text-decoration: none;
-        padding: 0.32rem 0.42rem;
-        border-radius: 999px;
-      }
-
-      #hero {
-        min-height: 100svh;
-      }
-
-      .hero-content {
-        left: 1rem;
-        right: 1rem;
-        bottom: clamp(5rem, 18vh, 7rem);
-        max-width: 92vw;
-      }
-
-      .hero-label {
-        margin-bottom: 0.85rem;
-      }
-
-      .hero-label-inner {
-        font-size: 0.44rem;
-        letter-spacing: 0.28em;
-      }
-
-      .hero-h1 {
-        font-size: clamp(2.55rem, 16vw, 4.5rem);
-        line-height: 0.95;
-      }
-
-      .scroll-hint {
-        bottom: 1rem;
-      }
-
-      .scroll-hint-text {
-        font-size: 0.42rem;
-        letter-spacing: 0.28em;
-      }
-
-      #manifest {
-        padding: clamp(5rem, 13vh, 8rem) 1rem clamp(5rem, 12vh, 8rem);
-      }
-
-      blockquote.manifest-quote {
-        font-size: clamp(1.7rem, 8.5vw, 2.7rem);
-        margin-bottom: 3rem;
-      }
-
-      .pillars {
-        gap: 0.5rem;
-      }
-
-      .pillar,
-      .section-eyebrow,
-      .contact-link,
-      .contact-role,
-      .contact-brand {
-        letter-spacing: 0.22em;
-      }
-
-      #galeria {
-        padding: 0 1rem clamp(4.5rem, 12vh, 7rem);
-      }
-
-      .gallery-head {
-        padding: 0.5rem 0 2rem;
-      }
-
-      .g-two, .g-asym {
+      .g-two {
         grid-template-columns: 1fr;
       }
 
       .g-two .img-wrap:first-child,
-      .g-two .img-wrap:last-child,
-      .g-asym .img-wrap:first-child,
-      .g-asym .img-wrap:last-child {
+      .g-two .img-wrap:last-child {
         height: clamp(32vh, 58vw, 52vh);
         margin-top: 0;
       }
 
-      .g-full .img-wrap,
-      .g-offset,
-      .g-offset .img-wrap {
-        width: 100%;
+      .g-full .img-wrap {
         height: clamp(34vh, 62vw, 54vh);
       }
 
@@ -897,72 +785,33 @@
         padding: clamp(5.5rem, 16vw, 7rem) 1rem clamp(5rem, 14vw, 6rem);
       }
 
-      .editorial-overlay {
-        background: rgba(12,11,10,0.82);
-      }
+      .editorial-overlay { background: rgba(12,11,10,0.82); }
 
-      .ed-q1,
-      .ed-q2 {
-        font-size: clamp(2rem, 11vw, 3.2rem);
-      }
+      .ed-q1, .ed-q2 { font-size: clamp(2rem, 11vw, 3.2rem); }
 
-      #kontakt {
-        padding: clamp(5.5rem, 14vh, 8rem) 1rem clamp(3rem, 8vh, 5rem);
-      }
-
-      .contact-center {
-        max-width: 100%;
-      }
-
-      .contact-form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-form {
-        margin-top: 2rem;
-      }
-
-      .contact-mk {
-        font-size: clamp(3.1rem, 18vw, 5rem);
-      }
-
-      .contact-name {
-        font-size: clamp(1.35rem, 7vw, 2rem);
-      }
-
-      .footer-copy {
-        margin-top: 3.5rem;
-      }
+      .uslugi-grid { grid-template-columns: 1fr; }
+      .uslugi-card { min-height: 220px; }
     }
 
-    /* ─── REDUCED MOTION ─── */
     @media (prefers-reduced-motion: reduce) {
       body::after { animation: none; }
       .scroll-hint-line { animation: none; opacity: 0.4; }
-
       #loader { display: none !important; }
-
       .img-wrap { clip-path: none !important; }
-
-      .hero-label-inner,
-      .hero-line,
-      .q-line,
-      .pillar,
-      .pillar-sep,
-      .section-eyebrow,
-      .gallery-head,
-      .ed-word-inner,
-      .editorial-eyebrow,
-      .contact-center > * { opacity: 1 !important; transform: none !important; }
+      .hero-label-inner, .hero-line, .q-line, .pillar, .pillar-sep,
+      .ed-word-inner, .contact-center > *, .uslugi-header, .uslugi-card
+        { opacity: 1 !important; transform: none !important; }
+      .nav-overlay { transition: none; }
+      .nav-burger span { transition: none; }
+      .nav-menu-link { opacity: 1 !important; transform: none !important; }
+      .nav-overlay-label, .nav-overlay-footer { opacity: 1 !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CURSOR -->
   <div id="cursor" aria-hidden="true"></div>
 
-  <!-- LOADER -->
   <div id="loader" aria-hidden="true">
     <div class="loader-mk" id="ldrMK">MK</div>
     <div class="loader-sub" id="ldrSub">Musiorska Architekt</div>
@@ -972,17 +821,32 @@
   <nav aria-label="Nawigacja główna">
     <a href="#" class="logo" aria-label="Kamila Musiorska — strona główna">
       <img src="images/portret.jpg" alt="" aria-hidden="true" style="width:3rem;height:3rem;border-radius:50%;object-fit:cover;border:1px solid rgba(235,229,217,0.14);flex:0 0 auto;">
-      <span class="logo-mk">MK</span>
-      <span class="logo-sub">Musiorska Architekt</span>
+      <span class="logo-text">
+        <span class="logo-mk">MK</span>
+        <span class="logo-sub">Musiorska Architekt</span>
+      </span>
     </a>
+    <button class="nav-burger" id="navBurger" aria-label="Otwórz menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
-  <div class="mobile-quick-nav" aria-label="Szybka nawigacja">
-    <a href="#hero">Start</a>
-    <a href="#galeria">Galeria</a>
+  <!-- NAV OVERLAY -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <p class="nav-overlay-label" aria-hidden="true">Nawigacja</p>
+    <nav class="nav-menu-links" aria-label="Sekcje strony">
+      <a href="#hero"     class="nav-menu-link" data-menu-link>Strona&nbsp;główna</a>
+      <a href="#manifest" class="nav-menu-link" data-menu-link>Manifest</a>
+      <a href="#galeria"  class="nav-menu-link" data-menu-link>Galeria</a>
+      <a href="#uslugi"   class="nav-menu-link" data-menu-link>Usługi</a>
+      <a href="#kontakt"  class="nav-menu-link" data-menu-link>Kontakt</a>
+    </nav>
+    <p class="nav-overlay-footer" aria-hidden="true">© 2025 Kamila Musiorska</p>
   </div>
 
-  <!-- ═══════════════ HERO ═══════════════ -->
+  <!-- HERO -->
   <section id="hero" aria-label="Strona tytułowa">
     <img
       class="hero-bg"
@@ -993,7 +857,6 @@
     >
     <div class="hero-bg-fallback" id="heroBgFallback" aria-hidden="true"></div>
     <div class="hero-gradient" aria-hidden="true"></div>
-
     <div class="hero-content">
       <div class="hero-label" aria-hidden="true">
         <span class="hero-label-inner">Architekt&nbsp;Wnętrz&nbsp;&nbsp;·&nbsp;&nbsp;Projekt&nbsp;Kompleksowy</span>
@@ -1003,21 +866,15 @@
         <span class="hero-line-wrap"><span class="hero-line">Musiorska</span></span>
       </h1>
     </div>
-
     <div class="scroll-hint" aria-hidden="true">
       <span class="scroll-hint-text">Przewiń</span>
       <div class="scroll-hint-line"></div>
     </div>
   </section>
 
-  <!-- ═══════════════ MANIFEST ═══════════════ -->
+  <!-- MANIFEST -->
   <section id="manifest" aria-label="Manifest">
     <div class="manifest-inner">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="section-eyebrow" data-num="01" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Insight
-      </p>
-      -->
       <blockquote class="manifest-quote">
         <span class="q-line-wrap"><span class="q-line">Przestrzeń tak osobista,</span></span>
         <span class="q-line-wrap"><span class="q-line">jak opowieść,</span></span>
@@ -1033,56 +890,27 @@
     </div>
   </section>
 
-  <!-- ═══════════════ GALERIA ═══════════════ -->
+  <!-- GALERIA -->
   <section id="galeria" aria-label="Galeria realizacji">
-    <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-    <div class="gallery-head">
-      <p class="section-eyebrow" data-num="02" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Realizacje
-      </p>
-    </div>
-    -->
-
-    <!-- 01 full width -->
     <div class="g-full">
       <div class="img-wrap" data-reveal>
-        <img src="images/ImageDownloader_www.instagram.com_701157047_18588021211054010_1980807239765107053_n.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/ImageDownloader_www.instagram.com_701157047_18588021211054010_1980807239765107053_n.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">01</span>
-          <span class="img-caption-label">{{PODPIS_01}}</span>
-        </div>
-        -->
+        <img src="images/ImageDownloader_www.instagram.com_701157047_18588021211054010_1980807239765107053_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('01'), this)">
       </div>
     </div>
-
-    <!-- 02 + 03 two column -->
     <div class="g-two">
       <div class="img-wrap" data-reveal>
-        <img src="images/ImageDownloader_www.instagram.com_710651169_18592300978054010_578262123835546646_n.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/ImageDownloader_www.instagram.com_710651169_18592300978054010_578262123835546646_n.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">02</span>
-          <span class="img-caption-label">{{PODPIS_02}}</span>
-        </div>
-        -->
+        <img src="images/ImageDownloader_www.instagram.com_710651169_18592300978054010_578262123835546646_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('02'), this)">
       </div>
       <div class="img-wrap" data-reveal>
-        <img src="images/ImageDownloader_www.instagram.com_703752261_18588026446054010_2466794512283422903_n.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
-          onerror="this.parentNode.replaceChild(createFallback('images/ImageDownloader_www.instagram.com_703752261_18588026446054010_2466794512283422903_n.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
-        <div class="img-caption">
-          <span class="img-caption-num">03</span>
-          <span class="img-caption-label">{{PODPIS_03}}</span>
-        </div>
-        -->
+        <img src="images/ImageDownloader_www.instagram.com_703752261_18588026446054010_2466794512283422903_n.jpg" alt="Realizacja — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('03'), this)">
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ EDITORIAL ═══════════════ -->
+  <!-- EDITORIAL -->
   <section id="editorial" aria-label="Cytat przewodni">
     <img
       class="editorial-bg"
@@ -1093,9 +921,6 @@
     >
     <div class="editorial-overlay" aria-hidden="true"></div>
     <div class="editorial-content">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="editorial-eyebrow" aria-hidden="true">03 / Editorial</p>
-      -->
       <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
         <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
         <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
@@ -1110,16 +935,48 @@
     </div>
   </section>
 
-  <!-- ═══════════════ KONTAKT / STOPKA ═══════════════ -->
+  <!-- USLUGI -->
+  <section id="uslugi" aria-label="Usługi">
+    <div class="uslugi-header">
+      <h2 class="uslugi-title">Usługi</h2>
+    </div>
+    <div class="uslugi-grid">
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
+      </div>
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
+      </div>
+      <div class="uslugi-card">
+        <div class="uslugi-card-content" aria-hidden="true">
+          <h3 class="uslugi-card-name">Nazwa usługi</h3>
+          <p class="uslugi-card-desc">Opis zakresu usługi — szczegóły dotyczące procesu współpracy, czasu realizacji oraz efektów końcowych projektu.</p>
+          <span class="uslugi-card-price">Cena</span>
+        </div>
+        <div class="uslugi-lock-badge" aria-hidden="true"><span class="uslugi-lock-badge-inner">Wkrótce</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
   <footer id="kontakt" aria-label="Kontakt">
     <div class="contact-center" id="contactCenter">
       <div class="contact-mk" aria-hidden="true">MK</div>
-      <p class="contact-brand">Kontakt</p>
+      <p class="contact-brand">Musiorska Architekt</p>
       <h2 class="contact-name">Kamila Musiorska</h2>
       <p class="contact-role">Architekt wnętrz</p>
       <div class="contact-divider" aria-hidden="true"></div>
       <nav class="contact-links" aria-label="Dane kontaktowe">
-        <span class="contact-link blur-placeholder" aria-label="Numer telefonu">+48 600 000 000</span>
         <a
           href="https://www.instagram.com/kamila.musiorska/"
           class="contact-link"
@@ -1133,14 +990,19 @@
           <input class="contact-field" type="text" name="name" placeholder="Imię" aria-label="Imię">
           <input class="contact-field" type="text" name="surname" placeholder="Nazwisko" aria-label="Nazwisko">
         </div>
-        <textarea class="contact-textarea" name="message" placeholder="Wiadomość" aria-label="Wiadomość"></textarea>
-        <button class="contact-submit" type="button" aria-label="Formularz pokazowy">Wyślij</button>
-      </form>
+        <div class="contact-item">
+          <span class="contact-item-label">E-mail</span>
+          <a href="mailto:{{EMAIL}}" class="contact-link is-token" aria-label="Adres e-mail — do uzupełnienia">{{EMAIL}}</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Telefon</span>
+          <span class="contact-phone-blocked" aria-label="Numer telefonu — wkrótce dostępny">+48 &bull;&bull;&bull; &bull;&bull;&bull; &bull;&bull;&bull;</span>
+        </div>
+      </nav>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
   </footer>
 
-  <!-- ═══════════════ SCRIPTS ═══════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1150,11 +1012,8 @@
     'use strict';
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* ── REGISTER ── */
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ── LENIS ── */
     var lenis;
     if (!reducedMotion) {
       lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
@@ -1163,202 +1022,157 @@
       gsap.ticker.lagSmoothing(0);
     }
 
-    /* ── CURSOR ── */
     var cursor = document.getElementById('cursor');
     var isTouch = window.matchMedia('(hover: none)').matches;
 
     if (!isTouch && !reducedMotion) {
       cursor.style.display = 'block';
       var cx = 0, cy = 0, tx = 0, ty = 0;
-
       document.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
-
       gsap.ticker.add(function () {
         cx += (tx - cx) * 0.14;
         cy += (ty - cy) * 0.14;
         gsap.set(cursor, { x: cx, y: cy });
       });
-
-      document.querySelectorAll('a, .img-wrap, .nav-cta').forEach(function (el) {
+      document.querySelectorAll('a, .img-wrap, .nav-burger').forEach(function (el) {
         el.addEventListener('mouseenter', function () { cursor.classList.add('expanded'); });
         el.addEventListener('mouseleave', function () { cursor.classList.remove('expanded'); });
       });
     }
 
-    /* ─────────────────────────────────────────────
-       LOADER → HERO
-    ───────────────────────────────────────────── */
+    /* HAMBURGER */
+    var navBurger  = document.getElementById('navBurger');
+    var navOverlay = document.getElementById('navOverlay');
+    var menuLinks  = document.querySelectorAll('[data-menu-link]');
+    var menuLinkEls = document.querySelectorAll('.nav-menu-link');
+    var menuIsOpen = false;
+
+    function openMenu() {
+      menuIsOpen = true;
+      navBurger.classList.add('is-open');
+      navBurger.setAttribute('aria-expanded', 'true');
+      navBurger.setAttribute('aria-label', 'Zamknij menu');
+      navOverlay.classList.add('is-open');
+      navOverlay.removeAttribute('aria-hidden');
+      document.body.style.overflow = 'hidden';
+      if (!reducedMotion) {
+        gsap.fromTo(menuLinkEls, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.08, delay: 0.12 });
+        gsap.fromTo('.nav-overlay-label, .nav-overlay-footer', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.08 });
+      } else {
+        gsap.set(menuLinkEls, { opacity: 1, y: 0 });
+        gsap.set('.nav-overlay-label, .nav-overlay-footer', { opacity: 1 });
+      }
+    }
+
+    function closeMenu(callback) {
+      menuIsOpen = false;
+      navBurger.classList.remove('is-open');
+      navBurger.setAttribute('aria-expanded', 'false');
+      navBurger.setAttribute('aria-label', 'Otwórz menu');
+      navOverlay.classList.remove('is-open');
+      navOverlay.setAttribute('aria-hidden', 'true');
+      if (!reducedMotion) {
+        gsap.to('.nav-overlay-label, .nav-overlay-footer', { opacity: 0, duration: 0.25, ease: 'power2.in' });
+        gsap.to(menuLinkEls, { opacity: 0, y: 14, duration: 0.3, ease: 'power2.in', stagger: 0.03,
+          onComplete: function () { document.body.style.overflow = ''; if (callback) callback(); }
+        });
+      } else {
+        gsap.set(menuLinkEls, { opacity: 0, y: 22 });
+        gsap.set('.nav-overlay-label, .nav-overlay-footer', { opacity: 0 });
+        document.body.style.overflow = '';
+        if (callback) callback();
+      }
+    }
+
+    navBurger.addEventListener('click', function () {
+      if (menuIsOpen) { closeMenu(); } else { openMenu(); }
+    });
+
+    menuLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href');
+        closeMenu(function () {
+          var target = document.querySelector(targetId);
+          if (!target) return;
+          if (lenis) { lenis.scrollTo(target, { offset: -80, duration: 1.2 }); }
+          else { target.scrollIntoView({ behavior: 'smooth' }); }
+        });
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuIsOpen) { closeMenu(); }
+    });
+
+    /* LOADER */
     function startSite() {
       if (reducedMotion) {
         document.getElementById('loader').style.display = 'none';
-        document.querySelectorAll('.img-wrap').forEach(function (el) {
-          el.style.clipPath = 'none';
-        });
+        document.querySelectorAll('.img-wrap').forEach(function (el) { el.style.clipPath = 'none'; });
         bindScrollAnimations();
         return;
       }
-
-      var tl = gsap.timeline({
-        onComplete: function () {
-          document.getElementById('loader').style.display = 'none';
-          bindScrollAnimations();
-        }
-      });
-
-      /* 1 · monogram fades in */
-      tl.to('#ldrMK', {
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 0.65,
-        ease: 'power2.out'
-      })
-      /* 2 · sub-label */
-      .to('#ldrSub', {
-        opacity: 1,
-        duration: 0.4,
-        ease: 'power2.out'
-      }, '-=0.15')
-      /* 3 · loader slides up */
-      .to('#loader', {
-        yPercent: -100,
-        duration: 0.88,
-        ease: 'power3.inOut',
-        delay: 0.28
-      })
-      /* 4 · hero bg zooms from slightly enlarged */
-      .from('#heroBg', {
-        scale: 1.07,
-        duration: 1.3,
-        ease: 'power3.out'
-      }, '-=0.5')
-      /* 5 · hero text reveals */
-      .from('.hero-label-inner', {
-        yPercent: 115,
-        duration: 0.95,
-        ease: 'power3.out'
-      }, '-=0.9')
-      .from('.hero-line', {
-        yPercent: 108,
-        duration: 1.0,
-        ease: 'expo.out',
-        stagger: 0.09
-      }, '-=0.65')
-      .from('.scroll-hint', {
-        opacity: 0,
-        y: 14,
-        duration: 0.7,
-        ease: 'power2.out'
-      }, '-=0.3');
+      var tl = gsap.timeline({ onComplete: function () {
+        document.getElementById('loader').style.display = 'none';
+        bindScrollAnimations();
+      }});
+      tl.to('#ldrMK', { opacity: 1, filter: 'blur(0px)', duration: 0.65, ease: 'power2.out' })
+        .to('#ldrSub', { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.15')
+        .to('#loader', { yPercent: -100, duration: 0.88, ease: 'power3.inOut', delay: 0.28 })
+        .from('#heroBg', { scale: 1.07, duration: 1.3, ease: 'power3.out' }, '-=0.5')
+        .from('.hero-label-inner', { yPercent: 115, duration: 0.95, ease: 'power3.out' }, '-=0.9')
+        .from('.hero-line', { yPercent: 108, duration: 1.0, ease: 'expo.out', stagger: 0.09 }, '-=0.65')
+        .from('.scroll-hint', { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, '-=0.3');
     }
 
-    /* ─────────────────────────────────────────────
-       SCROLL ANIMATIONS
-    ───────────────────────────────────────────── */
+    /* SCROLL ANIMATIONS */
     function bindScrollAnimations() {
-
-      /* ── MANIFEST eyebrow ── */
-      gsap.from('#manifest .section-eyebrow', {
-        scrollTrigger: { trigger: '#manifest', start: 'top 82%' },
-        opacity: 0, y: 18, duration: 0.8, ease: 'power3.out'
-      });
-
-      /* ── MANIFEST quote lines ── */
       gsap.from('.q-line', {
         scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
-        yPercent: 105,
-        duration: 1.05,
-        ease: 'power3.out',
-        stagger: 0.1
+        yPercent: 105, duration: 1.05, ease: 'power3.out', stagger: 0.1
       });
-
-      /* ── MANIFEST pillars ── */
       gsap.from('.pillar, .pillar-sep', {
         scrollTrigger: { trigger: '.pillars', start: 'top 88%' },
-        opacity: 0, y: 10,
-        duration: 0.65,
-        ease: 'power3.out',
-        stagger: 0.07
+        opacity: 0, y: 10, duration: 0.65, ease: 'power3.out', stagger: 0.07
       });
-
-      /* ── GALLERY eyebrow ── */
-      gsap.from('.gallery-head', {
-        scrollTrigger: { trigger: '#galeria', start: 'top 82%' },
-        opacity: 0, y: 16, duration: 0.8, ease: 'power3.out'
-      });
-
-      /* ── GALLERY image reveals ── */
       document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
         var img = wrap.querySelector('img');
-
-        /* clip reveal */
-        gsap.to(wrap, {
-          clipPath: 'inset(0% 0 0 0)',
-          duration: 1.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: wrap,
-            start: 'top 90%'
-          }
+        gsap.to(wrap, { clipPath: 'inset(0% 0 0 0)', duration: 1.15, ease: 'power3.out',
+          scrollTrigger: { trigger: wrap, start: 'top 90%' }
         });
-
-        /* scale from within */
         if (img) {
-          gsap.fromTo(img,
-            { scale: 1.14 },
-            {
-              scale: 1,
-              duration: 1.35,
-              ease: 'power3.out',
-              scrollTrigger: { trigger: wrap, start: 'top 90%' }
-            }
-          );
-
-          /* parallax scrub */
-          gsap.to(img, {
-            yPercent: -9,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: wrap,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.8
-            }
+          gsap.fromTo(img, { scale: 1.14 }, { scale: 1, duration: 1.35, ease: 'power3.out',
+            scrollTrigger: { trigger: wrap, start: 'top 90%' }
+          });
+          gsap.to(img, { yPercent: -9, ease: 'none',
+            scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8 }
           });
         }
       });
-
-      /* ── EDITORIAL ── */
-      gsap.from('.editorial-eyebrow', {
-        scrollTrigger: { trigger: '#editorial', start: 'top 80%' },
-        opacity: 0, y: 14, duration: 0.7, ease: 'power3.out'
-      });
-
       gsap.from('.ed-word-inner', {
         scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
-        yPercent: 102,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        stagger: 0.065
+        yPercent: 102, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.065
       });
-
-      /* ── CONTACT ── */
+      gsap.from('.uslugi-header', {
+        scrollTrigger: { trigger: '#uslugi', start: 'top 82%' },
+        opacity: 0, y: 20, duration: 0.8, ease: 'power3.out'
+      });
+      gsap.from('.uslugi-card', {
+        scrollTrigger: { trigger: '#uslugi', start: 'top 78%' },
+        opacity: 0, y: 28, duration: 0.85, ease: 'power3.out', stagger: 0.1
+      });
       gsap.from('#contactCenter > *', {
         scrollTrigger: { trigger: '#kontakt', start: 'top 82%' },
-        opacity: 0, y: 22,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.09
+        opacity: 0, y: 22, duration: 0.9, ease: 'power3.out', stagger: 0.09
       });
     }
 
-    /* ── KICK OFF ── */
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', startSite);
     } else {
       startSite();
     }
-
   }());
   </script>
 
