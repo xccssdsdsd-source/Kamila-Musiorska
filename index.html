@@ -17,11 +17,15 @@
       div.className = 'img-fallback';
       var border = document.createElement('div');
       border.className = 'img-fallback-border';
-      var text = document.createElement('p');
-      text.className = 'img-fallback-text';
-      text.textContent = src;
+      var label = document.createElement('p');
+      label.className = 'img-fallback-label';
+      label.textContent = 'MIEJSCE NA ZDJĘCIE';
+      var fname = document.createElement('p');
+      fname.className = 'img-fallback-fname';
+      fname.textContent = src;
       div.appendChild(border);
-      div.appendChild(text);
+      div.appendChild(label);
+      div.appendChild(fname);
       return div;
     }
   </script>
@@ -32,12 +36,14 @@
 
     /* ─── TOKENS ─── */
     :root {
-      --bg:    #1C1915;
-      --bg-2:  #242018;
-      --text:  #EBE5D9;
-      --muted: #9A9182;
-      --gold:  #C4A36A;
-      --line:  rgba(235,229,217,0.14);
+      --bg:     #EDE6DA;
+      --bg-2:   #E4DACB;
+      --paper:  #F4EFE6;
+      --text:   #2B2620;
+      --muted:  #786E5E;
+      --accent: #A07F4E;
+      --line:   rgba(43,38,32,0.16);
+      --frame:  #DDD1BE;
     }
 
     html { font-size: 16px; }
@@ -60,7 +66,7 @@
       width: 100%; height: 100%;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E");
       background-size: 250px 250px;
-      opacity: 0.030;
+      opacity: 0.025;
       pointer-events: none;
       z-index: 9000;
       animation: grain 9s steps(2) infinite;
@@ -82,7 +88,7 @@
     #cursor {
       position: fixed;
       width: 7px; height: 7px;
-      background: var(--gold);
+      background: var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -96,7 +102,7 @@
     #cursor.expanded {
       width: 44px; height: 44px;
       background: transparent;
-      border: 1px solid rgba(196,163,106,0.6);
+      border: 1px solid rgba(160,127,78,0.5);
     }
 
     /* ─── LOADER ─── */
@@ -186,79 +192,58 @@
       position: absolute;
       bottom: -2px; left: 0; right: 100%;
       height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
     }
 
-    .nav-cta:hover { color: var(--gold); }
+    .nav-cta:hover { color: var(--accent); }
     .nav-cta:hover::after { right: 0; }
 
     /* ─── HERO ─── */
     #hero {
       position: relative;
-      height: 100vh;
-      min-height: 600px;
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      padding: clamp(6rem, 14vh, 10rem) clamp(1.5rem, 5vw, 3.5rem) clamp(6rem, 12vh, 9rem);
       overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
     }
 
-    /* placeholder shown when hero.jpg is missing */
-    .hero-bg-fallback {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #1a1714 0%, #0c0b0a 100%);
-      display: none;
-    }
-
-    .hero-gradient {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to top,
-          rgba(28,25,21,0.97) 0%,
-          rgba(28,25,21,0.40) 36%,
-          rgba(28,25,21,0.06) 62%,
-          transparent 100%),
-        radial-gradient(ellipse at center,
-          transparent 40%,
-          rgba(28,25,21,0.45) 100%);
-    }
-
-    .hero-content {
-      position: absolute;
-      bottom: clamp(3.5rem, 9vh, 7rem);
-      left: clamp(1.5rem, 5vw, 3.5rem);
-    }
+    .hero-text { position: relative; }
 
     .hero-label {
       overflow: hidden;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.4rem;
     }
 
     .hero-label-inner {
       display: block;
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(0.52rem, 1.1vw, 0.65rem);
+      font-size: clamp(0.52rem, 1.1vw, 0.62rem);
       font-weight: 400;
       letter-spacing: 0.35em;
-      color: var(--gold);
+      color: var(--accent);
       text-transform: uppercase;
     }
 
     .hero-h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+      font-size: clamp(3.2rem, 7vw, 7rem);
       line-height: 1.0;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       color: var(--text);
+      margin-bottom: 0;
     }
 
     .hero-line-wrap {
@@ -270,15 +255,31 @@
       display: block;
     }
 
+    /* hero image container */
+    .hero-img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--frame);
+    }
+
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
     .scroll-hint {
       position: absolute;
-      bottom: clamp(1.5rem, 4vh, 2.2rem);
+      bottom: 32px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.6rem;
+      z-index: 10;
     }
 
     .scroll-hint-text {
@@ -292,7 +293,7 @@
     .scroll-hint-line {
       width: 1px;
       height: 48px;
-      background: linear-gradient(to bottom, var(--gold) 0%, transparent 100%);
+      background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
       transform-origin: top;
       animation: scrollPulse 2.8s ease-in-out infinite;
     }
@@ -318,7 +319,7 @@
       font-size: 0.58rem;
       font-weight: 400;
       letter-spacing: 0.4em;
-      color: var(--gold);
+      color: var(--accent);
       text-transform: uppercase;
       margin-bottom: 3.5rem;
       display: flex;
@@ -375,7 +376,7 @@
     }
 
     .pillar-sep {
-      color: var(--gold);
+      color: var(--accent);
       margin: 0 1.1rem;
       font-size: 0.38rem;
       line-height: 1;
@@ -389,6 +390,32 @@
 
     .gallery-head {
       padding: clamp(1rem, 3vh, 2rem) 0 clamp(3rem, 7vh, 5rem);
+    }
+
+    .gallery-overline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .gallery-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .gallery-intro {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.04em;
     }
 
     /* ── layouts ── */
@@ -441,7 +468,7 @@
 
     .img-wrap:hover img { transform: scale(1.04); }
 
-    /* caption sits over image */
+    /* caption — number label only */
     .img-caption {
       position: absolute;
       bottom: 1.1rem;
@@ -453,26 +480,18 @@
     }
 
     .img-caption-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .img-caption-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.48rem;
+      font-size: 0.52rem;
       font-weight: 400;
       letter-spacing: 0.3em;
-      color: rgba(235,229,217,0.65);
+      color: var(--muted);
       text-transform: uppercase;
     }
 
     /* ── fallback ── */
     .img-fallback {
       width: 100%; height: 100%;
-      background: var(--bg-2);
+      background: var(--frame);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -487,64 +506,73 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 220px;
-      opacity: 0.075;
+      opacity: 0.045;
     }
 
     .img-fallback-border {
       position: absolute;
-      inset: 1.2rem;
+      inset: 14px;
       border: 1px solid var(--line);
+      pointer-events: none;
     }
 
-    .img-fallback-text {
+    .img-fallback-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.52rem;
-      letter-spacing: 0.45em;
-      color: var(--gold);
+      font-size: 0.50rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      color: var(--muted);
       text-transform: uppercase;
       position: relative;
       z-index: 1;
       text-align: center;
       padding: 0 2rem;
-      opacity: 0.7;
+    }
+
+    .img-fallback-fname {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.44rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: none;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 2rem;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* hero fallback variant */
+    .hero-img-wrap .img-fallback {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
     /* ─── EDITORIAL ─── */
     #editorial {
-      position: relative;
-      min-height: 100vh;
+      background: var(--bg-2);
       display: flex;
       align-items: stretch;
       overflow: hidden;
+      min-height: 80vh;
     }
 
-    .editorial-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .editorial-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to right,
-          rgba(28,25,21,0.97) 0%,
-          rgba(28,25,21,0.78) 45%,
-          rgba(28,25,21,0.22) 100%);
+    .editorial-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      align-items: center;
     }
 
     .editorial-content {
-      position: relative;
-      z-index: 2;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
-      max-width: min(65%, 860px);
-      min-height: 100vh;
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
     }
 
     .editorial-eyebrow {
@@ -560,7 +588,7 @@
     .ed-q1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.6rem, 5.5vw, 5.5rem);
       line-height: 1.04;
       color: var(--text);
       margin-bottom: 0.2em;
@@ -569,9 +597,9 @@
     .ed-q2 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.6rem, 5.5vw, 5.5rem);
       line-height: 1.04;
-      color: var(--gold);
+      color: var(--accent);
     }
 
     .ed-word {
@@ -584,9 +612,36 @@
       display: inline-block;
     }
 
+    /* editorial image */
+    .editorial-img-col {
+      position: relative;
+      align-self: stretch;
+      min-height: 480px;
+    }
+
+    .editorial-img-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--frame);
+    }
+
+    .editorial-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .editorial-img-wrap .img-fallback {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     /* ─── CONTACT / FOOTER ─── */
     #kontakt {
-      background: var(--bg);
+      background: var(--bg-2);
       padding: clamp(8rem, 20vh, 16rem) clamp(1.5rem, 5vw, 3.5rem) clamp(4rem, 8vh, 6rem);
       border-top: 1px solid var(--line);
     }
@@ -660,13 +715,6 @@
 
     .contact-link:hover { color: var(--text); }
 
-    .contact-link.is-token {
-      color: var(--gold);
-      cursor: default;
-    }
-
-    .contact-link.is-token:hover { color: var(--gold); }
-
     .footer-copy {
       margin-top: clamp(5rem, 12vh, 9rem);
       padding-top: 1.5rem;
@@ -679,6 +727,16 @@
     }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero-img-wrap {
+        aspect-ratio: 16 / 10;
+        max-height: 60vw;
+      }
+    }
+
     @media (max-width: 768px) {
       .g-two, .g-asym {
         grid-template-columns: 1fr;
@@ -694,14 +752,24 @@
 
       .g-offset { width: 100%; }
 
-      .editorial-content {
-        max-width: 100%;
-        padding: clamp(6rem, 14vw, 8rem) clamp(1.5rem, 5vw, 2rem);
+      .editorial-inner {
+        grid-template-columns: 1fr;
       }
 
-      .editorial-overlay {
-        background: rgba(12,11,10,0.82);
+      .editorial-img-col {
+        min-height: 280px;
+        position: relative;
       }
+
+      .editorial-img-wrap {
+        position: relative;
+        height: 280px;
+      }
+    }
+
+    /* safety: hero scroll-hint never overlaps text */
+    @media (max-height: 700px) {
+      .scroll-hint { display: none; }
     }
 
     /* ─── REDUCED MOTION ─── */
@@ -748,24 +816,27 @@
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <section id="hero" aria-label="Strona tytułowa">
-    <img
-      class="hero-bg"
-      id="heroBg"
-      src="images/hero.jpg"
-      alt="Wnętrze zaprojektowane przez Kamilę Musiorską"
-      onerror="this.style.display='none'; document.getElementById('heroBgFallback').style.display='block';"
-    >
-    <div class="hero-bg-fallback" id="heroBgFallback" aria-hidden="true"></div>
-    <div class="hero-gradient" aria-hidden="true"></div>
+    <div class="hero-inner">
 
-    <div class="hero-content">
-      <div class="hero-label" aria-hidden="true">
-        <span class="hero-label-inner">Architekt&nbsp;Wnętrz&nbsp;&nbsp;·&nbsp;&nbsp;Projekt&nbsp;Kompleksowy</span>
+      <div class="hero-text">
+        <div class="hero-label" aria-hidden="true">
+          <span class="hero-label-inner">Architekt&nbsp;Wnętrz&nbsp;·&nbsp;Projekt&nbsp;Kompleksowy</span>
+        </div>
+        <h1 class="hero-h1">
+          <span class="hero-line-wrap"><span class="hero-line">Kamila</span></span>
+          <span class="hero-line-wrap"><span class="hero-line">Musiorska</span></span>
+        </h1>
       </div>
-      <h1 class="hero-h1">
-        <span class="hero-line-wrap"><span class="hero-line">Kamila</span></span>
-        <span class="hero-line-wrap"><span class="hero-line">Musiorska</span></span>
-      </h1>
+
+      <div class="hero-img-wrap" id="heroImgWrap">
+        <img
+          id="heroImg"
+          src="images/hero.jpg"
+          alt="Wnętrze zaprojektowane przez Kamilę Musiorską"
+          onerror="this.style.display='none'; document.getElementById('heroImgWrap').appendChild(createFallback('images/hero.jpg'));"
+        >
+      </div>
+
     </div>
 
     <div class="scroll-hint" aria-hidden="true">
@@ -777,11 +848,6 @@
   <!-- ═══════════════ MANIFEST ═══════════════ -->
   <section id="manifest" aria-label="Manifest">
     <div class="manifest-inner">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="section-eyebrow" data-num="01" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Insight
-      </p>
-      -->
       <blockquote class="manifest-quote">
         <span class="q-line-wrap"><span class="q-line">Przestrzeń tak osobista,</span></span>
         <span class="q-line-wrap"><span class="q-line">jak opowieść,</span></span>
@@ -799,116 +865,101 @@
 
   <!-- ═══════════════ GALERIA ═══════════════ -->
   <section id="galeria" aria-label="Galeria realizacji">
-    <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
     <div class="gallery-head">
-      <p class="section-eyebrow" data-num="02" aria-hidden="true">
-        <span class="eyebrow-slash">/</span>&nbsp;Realizacje
-      </p>
+      <p class="gallery-overline">REALIZACJE</p>
+      <h2 class="gallery-title">Wybrane wnętrza</h2>
+      <p class="gallery-intro">Projektowanie kompleksowe, od koncepcji po gotowe wnętrze.</p>
     </div>
-    -->
 
     <!-- 01 full width -->
     <div class="g-full">
       <div class="img-wrap" data-reveal>
-        <img src="images/01.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
+        <img src="images/01.jpg" alt="Realizacja 01" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/01.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">01</span>
-          <span class="img-caption-label">{{PODPIS_01}}</span>
         </div>
-        -->
       </div>
     </div>
 
     <!-- 02 + 03 two column -->
     <div class="g-two">
       <div class="img-wrap" data-reveal>
-        <img src="images/02.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
+        <img src="images/02.jpg" alt="Realizacja 02" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/02.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">02</span>
-          <span class="img-caption-label">{{PODPIS_02}}</span>
         </div>
-        -->
       </div>
       <div class="img-wrap" data-reveal>
-        <img src="images/03.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
+        <img src="images/03.jpg" alt="Realizacja 03" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/03.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">03</span>
-          <span class="img-caption-label">{{PODPIS_03}}</span>
         </div>
-        -->
       </div>
     </div>
 
     <!-- 04 + 05 asymmetric -->
     <div class="g-asym">
       <div class="img-wrap" data-reveal>
-        <img src="images/04.jpg" alt="Realizacja czwarta — projekt wnętrza" loading="lazy"
+        <img src="images/04.jpg" alt="Realizacja 04" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/04.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">04</span>
-          <span class="img-caption-label">{{PODPIS_04}}</span>
         </div>
-        -->
       </div>
       <div class="img-wrap" data-reveal>
-        <img src="images/05.jpg" alt="Realizacja piąta — projekt wnętrza" loading="lazy"
+        <img src="images/05.jpg" alt="Realizacja 05" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/05.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">05</span>
-          <span class="img-caption-label">{{PODPIS_05}}</span>
         </div>
-        -->
       </div>
     </div>
 
     <!-- 06 offset right -->
     <div class="g-offset">
       <div class="img-wrap" data-reveal>
-        <img src="images/06.jpg" alt="Realizacja szósta — projekt wnętrza" loading="lazy"
+        <img src="images/06.jpg" alt="Realizacja 06" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/06.jpg'), this)">
-        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">06</span>
-          <span class="img-caption-label">{{PODPIS_06}}</span>
         </div>
-        -->
       </div>
     </div>
   </section>
 
   <!-- ═══════════════ EDITORIAL ═══════════════ -->
   <section id="editorial" aria-label="Cytat przewodni">
-    <img
-      class="editorial-bg"
-      src="images/editorial.jpg"
-      alt="Wnętrze — praca Kamili Musiorskiej"
-      loading="lazy"
-      onerror="this.style.display='none'; document.querySelector('.editorial-overlay').style.background='var(--bg-2)'"
-    >
-    <div class="editorial-overlay" aria-hidden="true"></div>
-    <div class="editorial-content">
-      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
-      <p class="editorial-eyebrow" aria-hidden="true">03 / Editorial</p>
-      -->
-      <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
-        <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
-        <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
-        <span class="ed-word"><span class="ed-word-inner">dzieje</span></span>&thinsp;
-        <span class="ed-word"><span class="ed-word-inner">się</span></span><br>
-        <span class="ed-word"><span class="ed-word-inner">przypadkiem.</span></span>
-      </p>
-      <p class="ed-q2" aria-label="Jest zaprojektowany.">
-        <span class="ed-word"><span class="ed-word-inner">Jest</span></span>&thinsp;
-        <span class="ed-word"><span class="ed-word-inner">zaprojektowany.</span></span>
-      </p>
+    <div class="editorial-inner">
+
+      <div class="editorial-content">
+        <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
+          <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
+          <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
+          <span class="ed-word"><span class="ed-word-inner">dzieje</span></span>&thinsp;
+          <span class="ed-word"><span class="ed-word-inner">się</span></span><br>
+          <span class="ed-word"><span class="ed-word-inner">przypadkiem.</span></span>
+        </p>
+        <p class="ed-q2" aria-label="Jest zaprojektowany.">
+          <span class="ed-word"><span class="ed-word-inner">Jest</span></span>&thinsp;
+          <span class="ed-word"><span class="ed-word-inner">zaprojektowany.</span></span>
+        </p>
+      </div>
+
+      <div class="editorial-img-col">
+        <div class="editorial-img-wrap" id="editorialImgWrap">
+          <img
+            id="editorialImg"
+            src="images/editorial.jpg"
+            alt="Wnętrze — praca Kamili Musiorskiej"
+            loading="lazy"
+            onerror="this.style.display='none'; document.getElementById('editorialImgWrap').appendChild(createFallback('images/editorial.jpg'));"
+          >
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -928,12 +979,6 @@
           rel="noopener noreferrer"
           aria-label="Instagram: @kamila.musiorska"
         >@kamila.musiorska</a>
-        <a
-          href="mailto:{{EMAIL}}"
-          class="contact-link is-token"
-          aria-label="Adres e-mail — do uzupełnienia"
-        >{{EMAIL}}</a>
-        <span class="contact-link is-token" aria-label="Numer telefonu — do uzupełnienia">{{TELEFON}}</span>
       </nav>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
@@ -1004,33 +1049,28 @@
         }
       });
 
-      /* 1 · monogram fades in */
       tl.to('#ldrMK', {
         opacity: 1,
         filter: 'blur(0px)',
         duration: 0.65,
         ease: 'power2.out'
       })
-      /* 2 · sub-label */
       .to('#ldrSub', {
         opacity: 1,
         duration: 0.4,
         ease: 'power2.out'
       }, '-=0.15')
-      /* 3 · loader slides up */
       .to('#loader', {
         yPercent: -100,
         duration: 0.88,
         ease: 'power3.inOut',
         delay: 0.28
       })
-      /* 4 · hero bg zooms from slightly enlarged */
-      .from('#heroBg', {
+      .from('#heroImg', {
         scale: 1.07,
         duration: 1.3,
         ease: 'power3.out'
       }, '-=0.5')
-      /* 5 · hero text reveals */
       .from('.hero-label-inner', {
         yPercent: 115,
         duration: 0.95,
@@ -1055,12 +1095,6 @@
     ───────────────────────────────────────────── */
     function bindScrollAnimations() {
 
-      /* ── MANIFEST eyebrow ── */
-      gsap.from('#manifest .section-eyebrow', {
-        scrollTrigger: { trigger: '#manifest', start: 'top 82%' },
-        opacity: 0, y: 18, duration: 0.8, ease: 'power3.out'
-      });
-
       /* ── MANIFEST quote lines ── */
       gsap.from('.q-line', {
         scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
@@ -1079,7 +1113,7 @@
         stagger: 0.07
       });
 
-      /* ── GALLERY eyebrow ── */
+      /* ── GALLERY head ── */
       gsap.from('.gallery-head', {
         scrollTrigger: { trigger: '#galeria', start: 'top 82%' },
         opacity: 0, y: 16, duration: 0.8, ease: 'power3.out'
@@ -1087,9 +1121,8 @@
 
       /* ── GALLERY image reveals ── */
       document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
-        var img = wrap.querySelector('img');
+        var inner = wrap.querySelector('img, .img-fallback');
 
-        /* clip reveal */
         gsap.to(wrap, {
           clipPath: 'inset(0% 0 0 0)',
           duration: 1.15,
@@ -1100,9 +1133,8 @@
           }
         });
 
-        /* scale from within */
-        if (img) {
-          gsap.fromTo(img,
+        if (inner) {
+          gsap.fromTo(inner,
             { scale: 1.14 },
             {
               scale: 1,
@@ -1112,8 +1144,7 @@
             }
           );
 
-          /* parallax scrub */
-          gsap.to(img, {
+          gsap.to(inner, {
             yPercent: -9,
             ease: 'none',
             scrollTrigger: {
@@ -1126,12 +1157,7 @@
         }
       });
 
-      /* ── EDITORIAL ── */
-      gsap.from('.editorial-eyebrow', {
-        scrollTrigger: { trigger: '#editorial', start: 'top 80%' },
-        opacity: 0, y: 14, duration: 0.7, ease: 'power3.out'
-      });
-
+      /* ── EDITORIAL words ── */
       gsap.from('.ed-word-inner', {
         scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
         yPercent: 102,
