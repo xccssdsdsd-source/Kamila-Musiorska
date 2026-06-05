@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kamila Musiorska — Architekt Wnętrz. Projekt kompleksowy. Przestrzeń tak osobista, jak opowieść, którą niesie.">
+  <title>Kamila Musiorska — Architekt Wnętrz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script>
+    /* createFallback must be global before any img onerror fires */
+    function createFallback(src) {
+      var div = document.createElement('div');
+      div.className = 'img-fallback';
+      var border = document.createElement('div');
+      border.className = 'img-fallback-border';
+      var text = document.createElement('p');
+      text.className = 'img-fallback-text';
+      text.textContent = src;
+      div.appendChild(border);
+      div.appendChild(text);
+      return div;
+    }
+  </script>
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --bg:    #0C0B0A;
+      --bg-2:  #131110;
+      --text:  #EBE5D9;
+      --muted: #9A9182;
+      --gold:  #C4A36A;
+      --line:  rgba(235,229,217,0.12);
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E");
+      background-size: 250px 250px;
+      opacity: 0.030;
+      pointer-events: none;
+      z-index: 9000;
+      animation: grain 9s steps(2) infinite;
+    }
+
+    @keyframes grain {
+      0%   { transform: translate(0, 0); }
+      12%  { transform: translate(-3%, 2%); }
+      25%  { transform: translate(2%, -3%); }
+      37%  { transform: translate(4%, 1%); }
+      50%  { transform: translate(-1%, 4%); }
+      62%  { transform: translate(3%, -2%); }
+      75%  { transform: translate(-4%, 3%); }
+      87%  { transform: translate(1%, -4%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor {
+      position: fixed;
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s cubic-bezier(0.23,1,0.32,1),
+                  height 0.4s cubic-bezier(0.23,1,0.32,1),
+                  background 0.4s;
+      display: none;
+    }
+
+    #cursor.expanded {
+      width: 44px; height: 44px;
+      background: transparent;
+      border: 1px solid rgba(196,163,106,0.6);
+    }
+
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .loader-mk {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 9vw, 6rem);
+      color: var(--text);
+      letter-spacing: 0.06em;
+      opacity: 0;
+      filter: blur(12px);
+      line-height: 1;
+    }
+
+    .loader-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 400;
+      letter-spacing: 0.45em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.9rem;
+      opacity: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: clamp(1.4rem, 3vh, 2rem) clamp(1.5rem, 5vw, 3.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      text-decoration: none;
+    }
+
+    .logo-mk {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.6rem;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.44rem;
+      font-weight: 400;
+      letter-spacing: 0.38em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.35s;
+    }
+
+    .nav-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 100%;
+      height: 1px;
+      background: var(--gold);
+      transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    .nav-cta:hover { color: var(--gold); }
+    .nav-cta:hover::after { right: 0; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    /* placeholder shown when hero.jpg is missing */
+    .hero-bg-fallback {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1714 0%, #0c0b0a 100%);
+      display: none;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top,
+          rgba(12,11,10,0.96) 0%,
+          rgba(12,11,10,0.45) 38%,
+          rgba(12,11,10,0.08) 65%,
+          transparent 100%),
+        radial-gradient(ellipse at center,
+          transparent 38%,
+          rgba(12,11,10,0.55) 100%);
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: clamp(3.5rem, 9vh, 7rem);
+      left: clamp(1.5rem, 5vw, 3.5rem);
+    }
+
+    .hero-label {
+      overflow: hidden;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-label-inner {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(0.52rem, 1.1vw, 0.65rem);
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .hero-line-wrap {
+      overflow: hidden;
+      display: block;
+    }
+
+    .hero-line {
+      display: block;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: clamp(1.5rem, 4vh, 2.2rem);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .scroll-hint-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.48rem;
+      letter-spacing: 0.35em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .scroll-hint-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold) 0%, transparent 100%);
+      transform-origin: top;
+      animation: scrollPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+      55%       { opacity: 1;    transform: scaleY(1); }
+    }
+
+    /* ─── MANIFEST ─── */
+    #manifest {
+      background: var(--bg);
+      padding: clamp(7rem, 18vh, 14rem) clamp(1.5rem, 5vw, 3.5rem) clamp(7rem, 16vh, 12rem);
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .manifest-inner { max-width: 860px; }
+
+    .section-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-eyebrow::before {
+      content: attr(data-num);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.0rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .section-eyebrow .eyebrow-slash {
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+
+    blockquote.manifest-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.1rem, 5.8vw, 4.8rem);
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 4.5rem;
+    }
+
+    .q-line-wrap {
+      overflow: hidden;
+      display: block;
+    }
+
+    .q-line {
+      display: block;
+    }
+
+    .pillars {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .pillar {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(0.58rem, 1.4vw, 0.72rem);
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .pillar-sep {
+      color: var(--gold);
+      margin: 0 1.1rem;
+      font-size: 0.38rem;
+      line-height: 1;
+    }
+
+    /* ─── GALLERY ─── */
+    #galeria {
+      background: var(--bg);
+      padding: 0 clamp(1.5rem, 5vw, 3.5rem) clamp(6rem, 14vh, 10rem);
+    }
+
+    .gallery-head {
+      padding: clamp(1rem, 3vh, 2rem) 0 clamp(3rem, 7vh, 5rem);
+    }
+
+    /* ── layouts ── */
+    .g-full { width: 100%; margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem); }
+    .g-full .img-wrap { height: clamp(52vh, 68vh, 82vh); }
+
+    .g-two {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(0.8rem, 1.5vw, 1.2rem);
+      margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+      align-items: start;
+    }
+
+    .g-two .img-wrap:first-child { height: clamp(38vh, 55vh, 68vh); }
+    .g-two .img-wrap:last-child  { height: clamp(28vh, 42vh, 52vh); margin-top: 6vh; }
+
+    .g-asym {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: clamp(0.8rem, 1.5vw, 1.2rem);
+      margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+      align-items: end;
+    }
+
+    .g-asym .img-wrap:first-child { height: clamp(42vh, 58vh, 72vh); }
+    .g-asym .img-wrap:last-child  { height: clamp(30vh, 44vh, 56vh); }
+
+    .g-offset {
+      width: 62%;
+      margin-left: auto;
+    }
+
+    .g-offset .img-wrap { height: clamp(42vh, 56vh, 68vh); }
+
+    /* ── img-wrap ── */
+    .img-wrap {
+      position: relative;
+      overflow: hidden;
+      clip-path: inset(100% 0 0 0);
+    }
+
+    .img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      will-change: transform;
+      transition: transform 0.9s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    .img-wrap:hover img { transform: scale(1.04); }
+
+    /* caption sits over image */
+    .img-caption {
+      position: absolute;
+      bottom: 1.1rem;
+      left: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      pointer-events: none;
+    }
+
+    .img-caption-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .img-caption-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.48rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: rgba(235,229,217,0.65);
+      text-transform: uppercase;
+    }
+
+    /* ── fallback ── */
+    .img-fallback {
+      width: 100%; height: 100%;
+      background: var(--bg-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-fallback::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px;
+      opacity: 0.075;
+    }
+
+    .img-fallback-border {
+      position: absolute;
+      inset: 1.2rem;
+      border: 1px solid var(--line);
+    }
+
+    .img-fallback-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 2rem;
+      opacity: 0.7;
+    }
+
+    /* ─── EDITORIAL ─── */
+    #editorial {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .editorial-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .editorial-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(12,11,10,0.97) 0%,
+          rgba(12,11,10,0.80) 45%,
+          rgba(12,11,10,0.25) 100%);
+    }
+
+    .editorial-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 3.5rem);
+      max-width: min(65%, 860px);
+      min-height: 100vh;
+    }
+
+    .editorial-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 3.5rem;
+    }
+
+    .ed-q1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      line-height: 1.04;
+      color: var(--text);
+      margin-bottom: 0.2em;
+    }
+
+    .ed-q2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+      line-height: 1.04;
+      color: var(--gold);
+    }
+
+    .ed-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .ed-word-inner {
+      display: inline-block;
+    }
+
+    /* ─── CONTACT / FOOTER ─── */
+    #kontakt {
+      background: var(--bg);
+      padding: clamp(8rem, 20vh, 16rem) clamp(1.5rem, 5vw, 3.5rem) clamp(4rem, 8vh, 6rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-center {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-mk {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(4.5rem, 12vw, 8rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: clamp(3.5rem, 9vh, 7rem);
+    }
+
+    .contact-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: clamp(3rem, 7vh, 5rem);
+    }
+
+    .contact-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--line);
+      margin: 0 auto clamp(3rem, 7vh, 5rem);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .contact-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.35s;
+    }
+
+    .contact-link:hover { color: var(--text); }
+
+    .contact-link.is-token {
+      color: var(--gold);
+      cursor: default;
+    }
+
+    .contact-link.is-token:hover { color: var(--gold); }
+
+    .footer-copy {
+      margin-top: clamp(5rem, 12vh, 9rem);
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .g-two, .g-asym {
+        grid-template-columns: 1fr;
+      }
+
+      .g-two .img-wrap:first-child,
+      .g-two .img-wrap:last-child,
+      .g-asym .img-wrap:first-child,
+      .g-asym .img-wrap:last-child {
+        height: clamp(42vh, 58vw, 60vh);
+        margin-top: 0;
+      }
+
+      .g-offset { width: 100%; }
+
+      .editorial-content {
+        max-width: 100%;
+        padding: clamp(6rem, 14vw, 8rem) clamp(1.5rem, 5vw, 2rem);
+      }
+
+      .editorial-overlay {
+        background: rgba(12,11,10,0.82);
+      }
+    }
+
+    /* ─── REDUCED MOTION ─── */
+    @media (prefers-reduced-motion: reduce) {
+      body::after { animation: none; }
+      .scroll-hint-line { animation: none; opacity: 0.4; }
+
+      #loader { display: none !important; }
+
+      .img-wrap { clip-path: none !important; }
+
+      .hero-label-inner,
+      .hero-line,
+      .q-line,
+      .pillar,
+      .pillar-sep,
+      .section-eyebrow,
+      .gallery-head,
+      .ed-word-inner,
+      .editorial-eyebrow,
+      .contact-center > * { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor" aria-hidden="true"></div>
+
+  <!-- LOADER -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-mk" id="ldrMK">MK</div>
+    <div class="loader-sub" id="ldrSub">Musiorska Architekt</div>
+  </div>
+
+  <!-- NAV -->
+  <nav aria-label="Nawigacja główna">
+    <a href="#" class="logo" aria-label="Kamila Musiorska — strona główna">
+      <span class="logo-mk">MK</span>
+      <span class="logo-sub">Musiorska Architekt</span>
+    </a>
+    <a href="#kontakt" class="nav-cta">Kontakt</a>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="hero" aria-label="Strona tytułowa">
+    <img
+      class="hero-bg"
+      id="heroBg"
+      src="images/hero.jpg"
+      alt="Wnętrze zaprojektowane przez Kamilę Musiorską"
+      onerror="this.style.display='none'; document.getElementById('heroBgFallback').style.display='block';"
+    >
+    <div class="hero-bg-fallback" id="heroBgFallback" aria-hidden="true"></div>
+    <div class="hero-gradient" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-label" aria-hidden="true">
+        <span class="hero-label-inner">Architekt&nbsp;Wnętrz&nbsp;&nbsp;·&nbsp;&nbsp;Projekt&nbsp;Kompleksowy</span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="hero-line-wrap"><span class="hero-line">Kamila</span></span>
+        <span class="hero-line-wrap"><span class="hero-line">Musiorska</span></span>
+      </h1>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-hint-text">Przewiń</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MANIFEST ═══════════════ -->
+  <section id="manifest" aria-label="Manifest">
+    <div class="manifest-inner">
+      <p class="section-eyebrow" data-num="01" aria-hidden="true">
+        <span class="eyebrow-slash">/</span>&nbsp;Insight
+      </p>
+      <blockquote class="manifest-quote">
+        <span class="q-line-wrap"><span class="q-line">Przestrzeń tak osobista,</span></span>
+        <span class="q-line-wrap"><span class="q-line">jak opowieść,</span></span>
+        <span class="q-line-wrap"><span class="q-line">którą niesie.</span></span>
+      </blockquote>
+      <div class="pillars" aria-label="Filary podejścia">
+        <span class="pillar">Funkcja</span>
+        <span class="pillar-sep" aria-hidden="true">◆</span>
+        <span class="pillar">Spokój</span>
+        <span class="pillar-sep" aria-hidden="true">◆</span>
+        <span class="pillar">Bez&nbsp;chaosu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ GALERIA ═══════════════ -->
+  <section id="galeria" aria-label="Galeria realizacji">
+    <div class="gallery-head">
+      <p class="section-eyebrow" data-num="02" aria-hidden="true">
+        <span class="eyebrow-slash">/</span>&nbsp;Realizacje
+      </p>
+    </div>
+
+    <!-- 01 full width -->
+    <div class="g-full">
+      <div class="img-wrap" data-reveal>
+        <img src="images/01.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/01.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">01</span>
+          <span class="img-caption-label">{{PODPIS_01}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 + 03 two column -->
+    <div class="g-two">
+      <div class="img-wrap" data-reveal>
+        <img src="images/02.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/02.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">02</span>
+          <span class="img-caption-label">{{PODPIS_02}}</span>
+        </div>
+      </div>
+      <div class="img-wrap" data-reveal>
+        <img src="images/03.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/03.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">03</span>
+          <span class="img-caption-label">{{PODPIS_03}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 + 05 asymmetric -->
+    <div class="g-asym">
+      <div class="img-wrap" data-reveal>
+        <img src="images/04.jpg" alt="Realizacja czwarta — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/04.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">04</span>
+          <span class="img-caption-label">{{PODPIS_04}}</span>
+        </div>
+      </div>
+      <div class="img-wrap" data-reveal>
+        <img src="images/05.jpg" alt="Realizacja piąta — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/05.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">05</span>
+          <span class="img-caption-label">{{PODPIS_05}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 offset right -->
+    <div class="g-offset">
+      <div class="img-wrap" data-reveal>
+        <img src="images/06.jpg" alt="Realizacja szósta — projekt wnętrza" loading="lazy"
+          onerror="this.parentNode.replaceChild(createFallback('images/06.jpg'), this)">
+        <div class="img-caption">
+          <span class="img-caption-num">06</span>
+          <span class="img-caption-label">{{PODPIS_06}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ EDITORIAL ═══════════════ -->
+  <section id="editorial" aria-label="Cytat przewodni">
+    <img
+      class="editorial-bg"
+      src="images/editorial.jpg"
+      alt="Wnętrze — praca Kamili Musiorskiej"
+      loading="lazy"
+      onerror="this.style.display='none'; document.querySelector('.editorial-overlay').style.background='var(--bg-2)'"
+    >
+    <div class="editorial-overlay" aria-hidden="true"></div>
+    <div class="editorial-content">
+      <p class="editorial-eyebrow" aria-hidden="true">03 / Editorial</p>
+      <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
+        <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
+        <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
+        <span class="ed-word"><span class="ed-word-inner">dzieje</span></span>&thinsp;
+        <span class="ed-word"><span class="ed-word-inner">się</span></span><br>
+        <span class="ed-word"><span class="ed-word-inner">przypadkiem.</span></span>
+      </p>
+      <p class="ed-q2" aria-label="Jest zaprojektowany.">
+        <span class="ed-word"><span class="ed-word-inner">Jest</span></span>&thinsp;
+        <span class="ed-word"><span class="ed-word-inner">zaprojektowany.</span></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ KONTAKT / STOPKA ═══════════════ -->
+  <footer id="kontakt" aria-label="Kontakt">
+    <div class="contact-center" id="contactCenter">
+      <div class="contact-mk" aria-hidden="true">MK</div>
+      <p class="contact-brand">Musiorska Architekt</p>
+      <h2 class="contact-name">Kamila Musiorska</h2>
+      <p class="contact-role">Architekt wnętrz · Projekt kompleksowy</p>
+      <div class="contact-divider" aria-hidden="true"></div>
+      <nav class="contact-links" aria-label="Dane kontaktowe">
+        <a
+          href="https://instagram.com/kamila.musiorska"
+          class="contact-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram: @kamila.musiorska"
+        >@kamila.musiorska</a>
+        <a
+          href="mailto:{{EMAIL}}"
+          class="contact-link is-token"
+          aria-label="Adres e-mail — do uzupełnienia"
+        >{{EMAIL}}</a>
+        <span class="contact-link is-token" aria-label="Numer telefonu — do uzupełnienia">{{TELEFON}}</span>
+      </nav>
+      <p class="footer-copy">© 2025 Kamila Musiorska</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── REGISTER ── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ── LENIS ── */
+    var lenis;
+    if (!reducedMotion) {
+      lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    /* ── CURSOR ── */
+    var cursor = document.getElementById('cursor');
+    var isTouch = window.matchMedia('(hover: none)').matches;
+
+    if (!isTouch && !reducedMotion) {
+      cursor.style.display = 'block';
+      var cx = 0, cy = 0, tx = 0, ty = 0;
+
+      document.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
+
+      gsap.ticker.add(function () {
+        cx += (tx - cx) * 0.14;
+        cy += (ty - cy) * 0.14;
+        gsap.set(cursor, { x: cx, y: cy });
+      });
+
+      document.querySelectorAll('a, .img-wrap, .nav-cta').forEach(function (el) {
+        el.addEventListener('mouseenter', function () { cursor.classList.add('expanded'); });
+        el.addEventListener('mouseleave', function () { cursor.classList.remove('expanded'); });
+      });
+    }
+
+    /* ─────────────────────────────────────────────
+       LOADER → HERO
+    ───────────────────────────────────────────── */
+    function startSite() {
+      if (reducedMotion) {
+        document.getElementById('loader').style.display = 'none';
+        document.querySelectorAll('.img-wrap').forEach(function (el) {
+          el.style.clipPath = 'none';
+        });
+        bindScrollAnimations();
+        return;
+      }
+
+      var tl = gsap.timeline({
+        onComplete: function () {
+          document.getElementById('loader').style.display = 'none';
+          bindScrollAnimations();
+        }
+      });
+
+      /* 1 · monogram fades in */
+      tl.to('#ldrMK', {
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 0.65,
+        ease: 'power2.out'
+      })
+      /* 2 · sub-label */
+      .to('#ldrSub', {
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '-=0.15')
+      /* 3 · loader slides up */
+      .to('#loader', {
+        yPercent: -100,
+        duration: 0.88,
+        ease: 'power3.inOut',
+        delay: 0.28
+      })
+      /* 4 · hero bg zooms from slightly enlarged */
+      .from('#heroBg', {
+        scale: 1.07,
+        duration: 1.3,
+        ease: 'power3.out'
+      }, '-=0.5')
+      /* 5 · hero text reveals */
+      .from('.hero-label-inner', {
+        yPercent: 115,
+        duration: 0.95,
+        ease: 'power3.out'
+      }, '-=0.9')
+      .from('.hero-line', {
+        yPercent: 108,
+        duration: 1.0,
+        ease: 'expo.out',
+        stagger: 0.09
+      }, '-=0.65')
+      .from('.scroll-hint', {
+        opacity: 0,
+        y: 14,
+        duration: 0.7,
+        ease: 'power2.out'
+      }, '-=0.3');
+    }
+
+    /* ─────────────────────────────────────────────
+       SCROLL ANIMATIONS
+    ───────────────────────────────────────────── */
+    function bindScrollAnimations() {
+
+      /* ── MANIFEST eyebrow ── */
+      gsap.from('#manifest .section-eyebrow', {
+        scrollTrigger: { trigger: '#manifest', start: 'top 82%' },
+        opacity: 0, y: 18, duration: 0.8, ease: 'power3.out'
+      });
+
+      /* ── MANIFEST quote lines ── */
+      gsap.from('.q-line', {
+        scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
+        yPercent: 105,
+        duration: 1.05,
+        ease: 'power3.out',
+        stagger: 0.1
+      });
+
+      /* ── MANIFEST pillars ── */
+      gsap.from('.pillar, .pillar-sep', {
+        scrollTrigger: { trigger: '.pillars', start: 'top 88%' },
+        opacity: 0, y: 10,
+        duration: 0.65,
+        ease: 'power3.out',
+        stagger: 0.07
+      });
+
+      /* ── GALLERY eyebrow ── */
+      gsap.from('.gallery-head', {
+        scrollTrigger: { trigger: '#galeria', start: 'top 82%' },
+        opacity: 0, y: 16, duration: 0.8, ease: 'power3.out'
+      });
+
+      /* ── GALLERY image reveals ── */
+      document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
+        var img = wrap.querySelector('img');
+
+        /* clip reveal */
+        gsap.to(wrap, {
+          clipPath: 'inset(0% 0 0 0)',
+          duration: 1.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrap,
+            start: 'top 90%'
+          }
+        });
+
+        /* scale from within */
+        if (img) {
+          gsap.fromTo(img,
+            { scale: 1.14 },
+            {
+              scale: 1,
+              duration: 1.35,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: wrap, start: 'top 90%' }
+            }
+          );
+
+          /* parallax scrub */
+          gsap.to(img, {
+            yPercent: -9,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrap,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.8
+            }
+          });
+        }
+      });
+
+      /* ── EDITORIAL ── */
+      gsap.from('.editorial-eyebrow', {
+        scrollTrigger: { trigger: '#editorial', start: 'top 80%' },
+        opacity: 0, y: 14, duration: 0.7, ease: 'power3.out'
+      });
+
+      gsap.from('.ed-word-inner', {
+        scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
+        yPercent: 102,
+        opacity: 0,
+        duration: 0.85,
+        ease: 'power3.out',
+        stagger: 0.065
+      });
+
+      /* ── CONTACT ── */
+      gsap.from('#contactCenter > *', {
+        scrollTrigger: { trigger: '#kontakt', start: 'top 82%' },
+        opacity: 0, y: 22,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.09
+      });
+    }
+
+    /* ── KICK OFF ── */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startSite);
+    } else {
+      startSite();
+    }
+
+  }());
+  </script>
+
+</body>
+</html>
