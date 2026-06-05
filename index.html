@@ -753,6 +753,68 @@
       text-decoration-color: rgba(154,145,130,0.4);
     }
 
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: min(28rem, 86vw);
+      margin: clamp(2.5rem, 6vh, 4rem) auto 0;
+    }
+
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-field,
+    .contact-textarea {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      padding: 0.95rem 1rem;
+      transition: border-color 0.35s;
+    }
+
+    .contact-field::placeholder,
+    .contact-textarea::placeholder { color: rgba(154,145,130,0.55); }
+
+    .contact-field:focus-visible,
+    .contact-textarea:focus-visible {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .contact-textarea {
+      resize: vertical;
+      min-height: 7rem;
+    }
+
+    .contact-submit {
+      align-self: center;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      padding: 0.95rem 2.6rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: background 0.35s, color 0.35s;
+    }
+
+    .contact-submit:hover,
+    .contact-submit:focus-visible { background: var(--gold); color: var(--bg); }
+    .contact-submit:active { transform: translateY(1px); }
+
     .footer-copy {
       margin-top: clamp(5rem, 12vh, 9rem);
       padding-top: 1.5rem;
@@ -998,7 +1060,9 @@
           <span class="contact-item-label">Telefon</span>
           <span class="contact-phone-blocked" aria-label="Numer telefonu — wkrótce dostępny">+48 &bull;&bull;&bull; &bull;&bull;&bull; &bull;&bull;&bull;</span>
         </div>
-      </nav>
+        <textarea class="contact-textarea" name="message" placeholder="Wiadomość" aria-label="Wiadomość"></textarea>
+        <button class="contact-submit" type="button" aria-label="Formularz pokazowy">Wyślij</button>
+      </form>
       <p class="footer-copy">© 2025 Kamila Musiorska</p>
     </div>
   </footer>
