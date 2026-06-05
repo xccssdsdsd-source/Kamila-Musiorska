@@ -32,12 +32,12 @@
 
     /* ─── TOKENS ─── */
     :root {
-      --bg:    #0C0B0A;
-      --bg-2:  #131110;
+      --bg:    #1C1915;
+      --bg-2:  #242018;
       --text:  #EBE5D9;
       --muted: #9A9182;
       --gold:  #C4A36A;
-      --line:  rgba(235,229,217,0.12);
+      --line:  rgba(235,229,217,0.14);
     }
 
     html { font-size: 16px; }
@@ -222,13 +222,13 @@
       inset: 0;
       background:
         linear-gradient(to top,
-          rgba(12,11,10,0.96) 0%,
-          rgba(12,11,10,0.45) 38%,
-          rgba(12,11,10,0.08) 65%,
+          rgba(28,25,21,0.97) 0%,
+          rgba(28,25,21,0.40) 36%,
+          rgba(28,25,21,0.06) 62%,
           transparent 100%),
         radial-gradient(ellipse at center,
-          transparent 38%,
-          rgba(12,11,10,0.55) 100%);
+          transparent 40%,
+          rgba(28,25,21,0.45) 100%);
     }
 
     .hero-content {
@@ -531,9 +531,9 @@
       inset: 0;
       background:
         linear-gradient(to right,
-          rgba(12,11,10,0.97) 0%,
-          rgba(12,11,10,0.80) 45%,
-          rgba(12,11,10,0.25) 100%);
+          rgba(28,25,21,0.97) 0%,
+          rgba(28,25,21,0.78) 45%,
+          rgba(28,25,21,0.22) 100%);
     }
 
     .editorial-content {
@@ -777,9 +777,11 @@
   <!-- ═══════════════ MANIFEST ═══════════════ -->
   <section id="manifest" aria-label="Manifest">
     <div class="manifest-inner">
+      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
       <p class="section-eyebrow" data-num="01" aria-hidden="true">
         <span class="eyebrow-slash">/</span>&nbsp;Insight
       </p>
+      -->
       <blockquote class="manifest-quote">
         <span class="q-line-wrap"><span class="q-line">Przestrzeń tak osobista,</span></span>
         <span class="q-line-wrap"><span class="q-line">jak opowieść,</span></span>
@@ -797,21 +799,25 @@
 
   <!-- ═══════════════ GALERIA ═══════════════ -->
   <section id="galeria" aria-label="Galeria realizacji">
+    <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
     <div class="gallery-head">
       <p class="section-eyebrow" data-num="02" aria-hidden="true">
         <span class="eyebrow-slash">/</span>&nbsp;Realizacje
       </p>
     </div>
+    -->
 
     <!-- 01 full width -->
     <div class="g-full">
       <div class="img-wrap" data-reveal>
         <img src="images/01.jpg" alt="Realizacja pierwsza — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/01.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">01</span>
           <span class="img-caption-label">{{PODPIS_01}}</span>
         </div>
+        -->
       </div>
     </div>
 
@@ -820,18 +826,22 @@
       <div class="img-wrap" data-reveal>
         <img src="images/02.jpg" alt="Realizacja druga — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/02.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">02</span>
           <span class="img-caption-label">{{PODPIS_02}}</span>
         </div>
+        -->
       </div>
       <div class="img-wrap" data-reveal>
         <img src="images/03.jpg" alt="Realizacja trzecia — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/03.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">03</span>
           <span class="img-caption-label">{{PODPIS_03}}</span>
         </div>
+        -->
       </div>
     </div>
 
@@ -840,18 +850,22 @@
       <div class="img-wrap" data-reveal>
         <img src="images/04.jpg" alt="Realizacja czwarta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/04.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">04</span>
           <span class="img-caption-label">{{PODPIS_04}}</span>
         </div>
+        -->
       </div>
       <div class="img-wrap" data-reveal>
         <img src="images/05.jpg" alt="Realizacja piąta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/05.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">05</span>
           <span class="img-caption-label">{{PODPIS_05}}</span>
         </div>
+        -->
       </div>
     </div>
 
@@ -860,10 +874,12 @@
       <div class="img-wrap" data-reveal>
         <img src="images/06.jpg" alt="Realizacja szósta — projekt wnętrza" loading="lazy"
           onerror="this.parentNode.replaceChild(createFallback('images/06.jpg'), this)">
+        <!-- PODPIS: odkomentuj gdy będzie tekst
         <div class="img-caption">
           <span class="img-caption-num">06</span>
           <span class="img-caption-label">{{PODPIS_06}}</span>
         </div>
+        -->
       </div>
     </div>
   </section>
@@ -879,7 +895,9 @@
     >
     <div class="editorial-overlay" aria-hidden="true"></div>
     <div class="editorial-content">
+      <!-- ETYKIETA SEKCJI: odkomentuj gdy potrzebna
       <p class="editorial-eyebrow" aria-hidden="true">03 / Editorial</p>
+      -->
       <p class="ed-q1" aria-label="Spokój nie dzieje się przypadkiem.">
         <span class="ed-word"><span class="ed-word-inner">Spokój</span></span>&thinsp;
         <span class="ed-word"><span class="ed-word-inner">nie</span></span>&thinsp;
