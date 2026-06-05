@@ -1149,6 +1149,16 @@
     </div>
   </footer>
 
+  <script>
+    setTimeout(function () {
+      var l = document.getElementById('loader');
+      if (l && l.style.display !== 'none' && !window.__siteStarted) {
+        l.style.display = 'none';
+        document.querySelectorAll('[style*="opacity: 0"], [style*="opacity:0"]').forEach(function (el) { el.style.opacity = '1'; });
+        document.querySelectorAll('.img-wrap').forEach(function (el) { el.style.clipPath = 'none'; });
+      }
+    }, 4500);
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1159,10 +1169,19 @@
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ nullTargetWarn: false });
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     var lenis;
     if (!reducedMotion) {
-      lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+      lenis = new Lenis({
+        lerp: 0.1,
+        smoothWheel: true,
+        syncTouch: true,
+        syncTouchLerp: 0.085,
+        touchInertiaMultiplier: 28,
+        gestureOrientation: 'vertical'
+      });
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
       gsap.ticker.lagSmoothing(0);
@@ -1263,6 +1282,7 @@
 
     /* LOADER */
     function startSite() {
+      window.__siteStarted = true;
       if (reducedMotion) {
         document.getElementById('loader').style.display = 'none';
         document.querySelectorAll('.img-wrap').forEach(function (el) { el.style.clipPath = 'none'; });
@@ -1284,50 +1304,67 @@
 
     /* SCROLL ANIMATIONS */
     function bindScrollAnimations() {
+      var start = 'top 86%';
       gsap.from('.q-line', {
-        scrollTrigger: { trigger: '#manifest', start: 'top 76%' },
+        scrollTrigger: { trigger: '#manifest', start: 'top 80%', once: true },
         yPercent: 105, duration: 1.05, ease: 'power3.out', stagger: 0.1
       });
       gsap.from('.pillar, .pillar-sep', {
-        scrollTrigger: { trigger: '.pillars', start: 'top 88%' },
+        scrollTrigger: { trigger: '.pillars', start: 'top 90%', once: true },
         opacity: 0, y: 10, duration: 0.65, ease: 'power3.out', stagger: 0.07
       });
       document.querySelectorAll('[data-reveal]').forEach(function (wrap) {
         var img = wrap.querySelector('img');
         gsap.to(wrap, { clipPath: 'inset(0% 0 0 0)', duration: 1.15, ease: 'power3.out',
-          scrollTrigger: { trigger: wrap, start: 'top 90%' }
+          scrollTrigger: { trigger: wrap, start: start, once: true }
         });
         if (img) {
           gsap.fromTo(img, { scale: 1.14 }, { scale: 1, duration: 1.35, ease: 'power3.out',
-            scrollTrigger: { trigger: wrap, start: 'top 90%' }
+            scrollTrigger: { trigger: wrap, start: start, once: true }
           });
           gsap.to(img, { yPercent: -9, ease: 'none',
-            scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8 }
+            scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 1.8, invalidateOnRefresh: true }
           });
         }
       });
       gsap.from('.ed-word-inner', {
-        scrollTrigger: { trigger: '#editorial', start: 'top 72%' },
+        scrollTrigger: { trigger: '#editorial', start: 'top 78%', once: true },
         yPercent: 102, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.065
       });
       gsap.from('.uslugi-header', {
-        scrollTrigger: { trigger: '#uslugi', start: 'top 82%' },
+        scrollTrigger: { trigger: '#uslugi', start: 'top 85%', once: true },
         opacity: 0, y: 20, duration: 0.8, ease: 'power3.out'
       });
       gsap.from('.uslugi-card', {
-        scrollTrigger: { trigger: '#uslugi', start: 'top 78%' },
+        scrollTrigger: { trigger: '#uslugi', start: 'top 82%', once: true },
         opacity: 0, y: 28, duration: 0.85, ease: 'power3.out', stagger: 0.1
       });
       gsap.from('#contactCenter > *', {
-        scrollTrigger: { trigger: '#kontakt', start: 'top 82%' },
+        scrollTrigger: { trigger: '#kontakt', start: 'top 85%', once: true },
         opacity: 0, y: 22, duration: 0.9, ease: 'power3.out', stagger: 0.09
+      });
+
+      ScrollTrigger.refresh();
+    }
+
+    function refreshOnAssets() {
+      window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+      window.addEventListener('orientationchange', function () {
+        setTimeout(function () { ScrollTrigger.refresh(); }, 250);
+      });
+      document.querySelectorAll('img').forEach(function (img) {
+        if (!img.complete) {
+          img.addEventListener('load', function () { ScrollTrigger.refresh(); });
+          img.addEventListener('error', function () { ScrollTrigger.refresh(); });
+        }
       });
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startSite);
+      document.addEventListener('DOMContentLoaded', function () { startSite(); refreshOnAssets(); });
     } else {
       startSite();
+      refreshOnAssets();
     }
   }());
   </script>
