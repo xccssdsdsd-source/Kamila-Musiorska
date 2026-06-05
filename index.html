@@ -269,6 +269,34 @@
       pointer-events: all;
     }
 
+    .nav-close {
+      position: absolute;
+      top: clamp(1.4rem, 3vh, 2rem);
+      right: clamp(1.5rem, 5vw, 3.5rem);
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 720;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-close span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 1px;
+      background: var(--text);
+      transition: background 0.35s;
+    }
+
+    .nav-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+    .nav-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+    .nav-close:hover span,
+    .nav-close:focus-visible span { background: var(--gold); }
+
     .nav-overlay-label {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.5rem;
@@ -981,6 +1009,7 @@
 
   <!-- NAV OVERLAY -->
   <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <button class="nav-close" id="navClose" aria-label="Zamknij menu"><span></span><span></span></button>
     <p class="nav-overlay-label" aria-hidden="true">Nawigacja</p>
     <nav class="nav-menu-links" aria-label="Sekcje strony">
       <a href="#hero"     class="nav-menu-link" data-menu-link>Strona&nbsp;główna</a>
@@ -1255,6 +1284,12 @@
 
     navBurger.addEventListener('click', function () {
       if (menuIsOpen) { closeMenu(); } else { openMenu(); }
+    });
+
+    document.getElementById('navClose').addEventListener('click', function () { closeMenu(); });
+
+    navOverlay.addEventListener('click', function (e) {
+      if (e.target === navOverlay) { closeMenu(); }
     });
 
     menuLinks.forEach(function (link) {
