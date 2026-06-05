@@ -182,13 +182,48 @@
       text-transform: uppercase;
     }
 
+    .nav-inline {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.4rem, 2.6vw, 2.8rem);
+      position: relative;
+      z-index: 701;
+    }
+
+    .nav-inline-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 0.35rem;
+      transition: color 0.35s;
+    }
+
+    .nav-inline-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .nav-inline-link:hover,
+    .nav-inline-link:focus-visible { color: var(--text); }
+    .nav-inline-link:hover::after,
+    .nav-inline-link:focus-visible::after { width: 100%; }
+
     /* HAMBURGER */
     .nav-burger {
       background: none;
       border: none;
       cursor: pointer;
       padding: 0.55rem 0.4rem;
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 5px;
       align-items: center;
@@ -827,6 +862,11 @@
     }
 
     /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .nav-inline { display: none; }
+      .nav-burger { display: flex; }
+    }
+
     @media (max-width: 768px) {
       .g-two {
         grid-template-columns: 1fr;
@@ -888,6 +928,13 @@
         <span class="logo-sub">Musiorska Architekt</span>
       </span>
     </a>
+    <div class="nav-inline" aria-label="Sekcje strony">
+      <a href="#hero" class="nav-inline-link">Start</a>
+      <a href="#manifest" class="nav-inline-link">Manifest</a>
+      <a href="#galeria" class="nav-inline-link">Galeria</a>
+      <a href="#uslugi" class="nav-inline-link">Usługi</a>
+      <a href="#kontakt" class="nav-inline-link">Kontakt</a>
+    </div>
     <button class="nav-burger" id="navBurger" aria-label="Otwórz menu" aria-expanded="false">
       <span></span>
       <span></span>
